@@ -1,0 +1,207 @@
+.post{
+  margin: 10px;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-rows: auto auto;
+  border: 1px solid rgb(151, 151, 151);
+  border-radius: 10px;
+  box-shadow:  0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+.whatthing{
+  display: flex;
+  grid-column-start: 2;
+  grid-column-end: 5 ;
+  align-items: center;
+  justify-content: center;
+  width: 460px;
+}
+.whatthing input{
+  border-radius: 40px;
+}
+.avatar{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-right: 15px;
+  height: 80px;
+}
+.avatar img{
+  border-radius: 50%;
+
+}
+.line{
+  grid-column-start: 1;
+  grid-column-end: 6 ;
+  border-top:1px solid rgb(175, 175, 175) ;
+  margin-left: 10px;
+  margin-right: 10px;
+
+}
+.addImage{
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  height: 50px;
+}
+.addImage p{
+  padding-left: 10px;
+  margin: 0;
+
+}
+.addVideo{
+  grid-column-start: 4;
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+.addVideo p{
+  padding-left: 10px;
+  margin: 0;
+}
+.newFeed {
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+  grid-template-rows: 60px auto 300px auto auto;
+  margin: 10px;
+  border: 1px solid rgb(175, 175, 175);
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+.Feed_Header {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+.Feed_Header ul {
+  list-style: none;
+  margin: 0;
+}
+.Feed_Header ul li {
+  margin-left: 10px;
+}
+
+.Feed_Header_Avatar img {
+  border-radius: 50%;
+}
+.Feed_Header_Name p {
+  margin: 0;
+}
+.Feed_Header_Time p {
+  margin: 0;
+}
+.Feed_Status {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+.Feed_Status p {
+  margin: 0;
+  margin-top: 10px;
+  margin-left: 62px;
+  margin-bottom: 10px;
+  word-wrap: break-word; /* hoặc dùng word-break */
+  white-space: normal;
+}
+.Feed_Media {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
+
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  overflow: hidden; /* Đảm bảo ảnh không vượt ra ngoài */
+}
+.Feed_Media img {
+  object-fit: contain;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+.Feed_Interact {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.Feed_Comment_Input input {
+  border-radius: 20px;
+}
+.Feed_Comment_Input {
+  margin-left: 10px;
+  width: 100%;
+}
+.Feed_Comment_icon {
+  margin-left: 10px;
+}
+.Feed_Interact i {
+  font-size: 20px;
+}
+.Feed_Comments {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 5;
+  grid-row-end: 6;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+.Feed_Commnets_Ava img {
+  border-radius: 50%;
+}
+.Feed_Commnets_Ava {
+  margin-left: 40px;
+}
+.Feed_Comment_text {
+  background-color: rgb(247, 240, 240);
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: auto;
+  margin-left: 10px;
+}
+.Feed_Comment_text p {
+  margin: 0;
+  word-wrap: break-word; /* hoặc dùng word-break */
+  white-space: normal;
+  margin: 10px;
+  font-size: 14px;
+}
+.arena_showcomment ul {
+  list-style: none;
+}
+.arena_showcomment li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.list_NewFeed ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+}
+
+/* Ẩn thanh cuộn mặc định */
+.middle {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.middle::-webkit-scrollbar {
+  width: 0; /* Ẩn thanh cuộn trên Chrome, Safari và Opera */
+}

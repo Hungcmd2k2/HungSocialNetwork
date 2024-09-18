@@ -1,0 +1,24 @@
+<div class="content">
+  <div class="select">
+    <div class="friend">
+      <button [routerLink]="['/Dashboard/Friend/MyFriend']" routerLinkActive="active-button" type="button" class="btn btn-outline-secondary">
+        Friend</button>
+    </div>
+    <div  class="invitation">
+      <button [routerLink]="['/Dashboard/Friend/Invitation']" routerLinkActive="active-button" type="button" class="btn btn-outline-secondary">
+        Friend Invitation</button>
+    </div>
+
+
+    <div class="search">
+      <button [routerLink]="['/Dashboard/Friend/Search']" routerLinkActive="active-button" type="button" class="btn btn-outline-secondary">
+        Search</button>
+    </div>
+  </div>
+
+  <div>
+<router-outlet></router-outlet>
+  </div>
+</div>
+
+

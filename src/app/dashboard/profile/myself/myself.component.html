@@ -1,0 +1,370 @@
+ <div class="background_top">
+  <div class="header-profile">
+    <div class="image">
+      <div class="cover-image">
+        <img src="assets/images/HomePage/Wukong.jpg" alt="cover photo">
+        <div class="avatar">
+         <img src="assets/images/HomePage/avatar.jpg" alt="avatar">
+       </div>
+       </div>
+    </div>
+  </div>
+
+</div>
+
+
+  <div class="background_mid">
+    <div class="information">
+      <div class="name">
+        <h5 style="margin: 0;">Đặng Hùng</h5>
+      </div>
+      <div class="total_friend">
+        <p>300 Friends</p>
+      </div>
+
+
+      <ul>
+        <li>
+          <div class="love-song">
+            <div class="img-song">
+              <img src="assets/images/Sơn_Tùng_M-TP_-_Chúng_ta_của_tương_lai.png" alt=" logo song">
+            </div>
+            <div class="infor-song">
+              <div class="name-song">
+                <p>Chúng ta của tương lai</p>
+              </div>
+              <div class="singer-song">
+                <p>Sơn Tùng M-TP</p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="love-song">
+            <div class="img-song">
+              <img src="assets/images/logo-huce.jpg" alt="logo school">
+            </div>
+            <div class="infor-song">
+              <div class="name-song">
+                <p>Trường đại học Xây Dựng Hà Nội</p>
+              </div>
+              <div class="singer-song">
+                <p>2020 - Nay</p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+
+        <li>
+          <div class="location">
+            <div class="icon">
+              <i class="bi bi-geo-alt" style="margin-right: 10px; font-size: 20px;"></i>
+            </div>
+            <div class="name-location">
+              <p style="padding: 0; margin: 0; "> Thái Bình</p>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="location">
+            <div class="icon">
+              <i class="bi bi-globe" style="margin-right: 10px;font-size: 20px"></i>
+            </div>
+            <div class="name-location">
+              <p style="padding: 0; margin: 0;"> hungsocial.com</p>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="location">
+            <div class="icon">
+              <i class="bi bi-envelope" style="margin-right: 10px;font-size: 20px"></i>
+            </div>
+            <div class="name-location">
+              <p style="padding: 0; margin: 0; "> hungdang16042002&#64;gmail.com</p>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+      <div class="hightlight-image">
+        <h6 style="margin-top:10px ;margin-bottom: 20px;">Featured photo</h6>
+        <ul>
+          <li>
+            <div class="outside">
+              <div class="image">
+
+                  <!-- Danh sách ảnh thu nhỏ -->
+                  <img
+                    src="assets/images/img-hightlight.jpg"
+                    alt="Thumbnail"
+                    class="thumbnail"
+                    (click)="openFullscreen('assets/images/img-hightlight.jpg')">
+
+              </div>
+              <div class="image-infor">
+                <p style="padding: 0; margin: 0;">2020</p>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="outside">
+              <div class="image">
+
+                  <!-- Danh sách ảnh thu nhỏ -->
+                  <img
+                    src="assets/images/Black_Myth_Wukong.jpg"
+                    alt="Thumbnail"
+                    class="thumbnail"
+                    (click)="openFullscreen('assets/images/Black_Myth_Wukong.jpg')">
+
+              </div>
+              <div class="image-infor">
+                <p style="padding: 0; margin: 0;">2020</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+
+<!-- Khung hiển thị ảnh toàn màn hình -->
+<div id="fullscreenOverlay" class="overlay" (click)="closeFullscreen()">
+  <img id="fullscreenImage" src="" alt="Full Image">
+</div>
+
+
+<div class="list_NewFeed">
+  <ul>
+    <li>
+      <div class="newFeed">
+        <div class="Feed_Header">
+          <div class="Feed_Header_Avatar">
+        <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:50px ;width: 50px;">
+          </div>
+          <ul>
+            <li>
+              <div class="Feed_Header_Name">
+              <p>Đặng Hùng</p>
+          </div>
+            </li>
+            <li>
+              <div class="Feed_Header_Time">
+                <p>1 Giờ trước</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="Feed_Status">
+          <p>“Nếu bạn muốn nghe sự thật, thành công của Game Science ngày nay được xây dựng dựa trên 4 lần thất bại liên tiếp</p>
+        </div>
+        <div class="Feed_Media">
+          <img src="assets/images/HomePage/Wukong.jpg" alt="">
+        </div>
+        <div class="Feed_Interact">
+          <div class="Feed_Like">
+            <i class="bi bi-heart"></i>
+          </div>
+                    <div class="Feed_Comment_icon">
+                      <i class="bi bi-chat"></i>
+                    </div>
+                    <div class="Feed_Comment_Input">
+                      <input type="text" id="" class="form-control" placeholder="Commnent...">
+                    </div>
+        </div>
+        <div class="Feed_Comments">
+          <div class="arena_showcomment">
+            <ul>
+              <li>
+                <div class="Feed_Commnets_Ava">
+                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
+                </div>
+                <div class="Feed_Comment_text">
+                   <p>Nếu bạn muốn nghe sự thật</p>
+                </div>
+              </li>
+
+              <li>
+                <div class="Feed_Commnets_Ava">
+                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
+                </div>
+                <div class="Feed_Comment_text">
+                   <p>Nếu bạn muốn nghe sự thật</p>
+                </div>
+              </li>
+
+              <li>
+                <div class="Feed_Commnets_Ava">
+                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
+                </div>
+                <div class="Feed_Comment_text">
+                   <p>Nếu bạn muốn nghe sự thật</p>
+                </div>
+              </li>
+
+
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="newFeed">
+        <div class="Feed_Header">
+          <div class="Feed_Header_Avatar">
+        <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:50px ;width: 50px;">
+          </div>
+          <ul>
+            <li>
+              <div class="Feed_Header_Name">
+              <p>Đặng Hùng</p>
+          </div>
+            </li>
+            <li>
+              <div class="Feed_Header_Time">
+                <p>1 Giờ trước</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="Feed_Status">
+          <p>“Nếu bạn muốn nghe sự thật, thành công của Game Science ngày nay được xây dựng dựa trên 4 lần thất bại liên tiếp</p>
+        </div>
+        <div class="Feed_Media">
+          <img src="assets/images/HomePage/Wukong.jpg" alt="">
+        </div>
+        <div class="Feed_Interact">
+          <div class="Feed_Like">
+            <i class="bi bi-heart"></i>
+          </div>
+                    <div class="Feed_Comment_icon">
+                      <i class="bi bi-chat"></i>
+                    </div>
+                    <div class="Feed_Comment_Input">
+                      <input type="text" id="" class="form-control" placeholder="Commnent...">
+                    </div>
+        </div>
+        <div class="Feed_Comments">
+          <div class="arena_showcomment">
+            <ul>
+              <li>
+                <div class="Feed_Commnets_Ava">
+                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
+                </div>
+                <div class="Feed_Comment_text">
+                   <p>Nếu bạn muốn nghe sự thật</p>
+                </div>
+              </li>
+
+              <li>
+                <div class="Feed_Commnets_Ava">
+                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
+                </div>
+                <div class="Feed_Comment_text">
+                   <p>Nếu bạn muốn nghe sự thật</p>
+                </div>
+              </li>
+
+              <li>
+                <div class="Feed_Commnets_Ava">
+                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
+                </div>
+                <div class="Feed_Comment_text">
+                   <p>Nếu bạn muốn nghe sự thật</p>
+                </div>
+              </li>
+
+
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="newFeed">
+        <div class="Feed_Header">
+          <div class="Feed_Header_Avatar">
+        <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:50px ;width: 50px;">
+          </div>
+          <ul>
+            <li>
+              <div class="Feed_Header_Name">
+              <p>Đặng Hùng</p>
+          </div>
+            </li>
+            <li>
+              <div class="Feed_Header_Time">
+                <p>1 Giờ trước</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="Feed_Status">
+          <p>“Nếu bạn muốn nghe sự thật, thành công của Game Science ngày nay được xây dựng dựa trên 4 lần thất bại liên tiếp</p>
+        </div>
+        <div class="Feed_Media">
+          <img src="assets/images/HomePage/Wukong.jpg" alt="">
+        </div>
+        <div class="Feed_Interact">
+          <div class="Feed_Like">
+            <i class="bi bi-heart"></i>
+          </div>
+                    <div class="Feed_Comment_icon">
+                      <i class="bi bi-chat"></i>
+                    </div>
+                    <div class="Feed_Comment_Input">
+                      <input type="text" id="" class="form-control" placeholder="Commnent...">
+                    </div>
+        </div>
+        <div class="Feed_Comments">
+          <div class="arena_showcomment">
+            <ul>
+              <li>
+                <div class="Feed_Commnets_Ava">
+                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
+                </div>
+                <div class="Feed_Comment_text">
+                   <p>Nếu bạn muốn nghe sự thật</p>
+                </div>
+              </li>
+
+              <li>
+                <div class="Feed_Commnets_Ava">
+                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
+                </div>
+                <div class="Feed_Comment_text">
+                   <p>Nếu bạn muốn nghe sự thật</p>
+                </div>
+              </li>
+
+              <li>
+                <div class="Feed_Commnets_Ava">
+                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
+                </div>
+                <div class="Feed_Comment_text">
+                   <p>Nếu bạn muốn nghe sự thật</p>
+                </div>
+              </li>
+
+
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </li>
+  </ul>
+
+</div>
+
+

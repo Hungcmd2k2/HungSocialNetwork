@@ -1,0 +1,330 @@
+.background_top{
+ margin: 10px;
+ height: 600px;
+ background-color: rgb(221, 221, 221);
+ box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+ border-radius: 10px;
+ height: auto;
+}
+.header-profile{
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+.cover-image{
+  overflow: hidden;
+  border-radius: 10px;
+  height: 250px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+.cover-image img{
+  width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+
+
+}
+.avatar{
+  position: absolute;
+  bottom: -50px; /* Đẩy avatar ra ngoài ảnh bìa */
+  left: 20px;    /* Khoảng cách từ lề trái của ảnh bìa */
+  width: 130px;  /* Kích thước của avatar */
+  height: 130px;
+  border-radius: 50%; /* Tạo hình tròn cho avatar */
+  overflow: hidden; /* Đảm bảo ảnh không bị tràn ra ngoài hình tròn */
+  border: 3px solid white; /* Viền trắng cho avatar */
+  display: grid;
+  place-items: center;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.background_mid{
+  background-color: rgb(255, 255, 255);
+  height: auto;
+  padding-left: 3px;
+  padding-bottom: 50px;
+  margin: 0px 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(214, 214, 214);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 10% 40% 50%;
+}
+.information{
+grid-column-start:1  ;
+grid-column-end:2 ;
+grid-row:2 ;
+}
+.information .name{
+  margin-left: 30px;
+}
+.information p{
+  padding: 0;
+  margin: 0;
+}
+.information .total_friend{
+  margin-left: 30px;
+}
+ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 30px;
+}
+li{
+  margin-bottom: 10px;
+}
+.love-song{
+  display: flex;
+  align-items: center;
+
+}
+.img-song{
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.img-song img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: flex;
+  place-items: center;
+}
+.infor-song{
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows:50% 50% ;
+  margin-left: 10px;
+}
+.name-song{
+  grid-column:1 ;
+  grid-row:1;
+}
+.singer-song{
+  grid-column:1 ;
+  grid-row:2;
+}
+.location{
+  display: flex;
+  align-items: center;
+}
+.hightlight-image{
+  margin-left: 30px;
+}
+.hightlight-image ul{
+list-style:none;
+padding: 0;
+margin: 0;
+
+}
+.hightlight-image li{
+  display: inline-block;
+  margin-right: 10px;
+}
+.outside{
+  height: auto;
+  width: 100px;
+  text-align: center;
+}
+.outside .image{
+  height: 150px;
+  width:100px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.outside .image img{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ảnh nhỏ */
+.thumbnail {
+   /* Đặt kích thước ảnh thumbnail */
+  cursor: pointer; /* Đổi con trỏ thành dạng bàn tay khi hover */
+}
+
+/* Overlay toàn màn hình */
+.overlay {
+  display: none; /* Mặc định ẩn overlay */
+  position: fixed; /* Cố định toàn màn hình */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Màu nền tối */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Hiển thị phía trên các phần tử khác */
+}
+
+/* Ảnh trong overlay */
+.overlay img {
+  max-width: 100%; /* Đảm bảo ảnh không vượt quá kích thước màn hình */
+  max-height: 100%;
+  object-fit: fill;
+}
+
+
+/*----------FEED__________*/
+
+
+
+.newFeed  {
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+  grid-template-rows: 60px auto 300px auto auto;
+  margin: 10px;
+  border: 1px solid rgb(175, 175, 175);
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+.Feed_Header {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+.Feed_Header ul {
+  list-style: none ;
+  margin: 0;
+}
+.Feed_Header ul li {
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+
+.Feed_Header_Avatar img {
+  border-radius: 50%;
+}
+.Feed_Header_Name p {
+  margin: 0;
+}
+.Feed_Header_Time p {
+  margin: 0;
+}
+.Feed_Status {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+.Feed_Status p {
+  margin: 0;
+  margin-top: 10px;
+  margin-left: 62px;
+  margin-bottom: 10px;
+  word-wrap: break-word; /* hoặc dùng word-break */
+  white-space: normal;
+}
+.Feed_Media {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
+
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  overflow: hidden; /* Đảm bảo ảnh không vượt ra ngoài */
+}
+.Feed_Media img {
+  object-fit: contain;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+.Feed_Interact {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.Feed_Comment_Input input {
+  border-radius: 20px;
+}
+.Feed_Comment_Input {
+  margin-left: 10px;
+  width: 100%;
+}
+.Feed_Comment_icon {
+  margin-left: 10px;
+}
+.Feed_Interact i {
+  font-size: 20px;
+}
+.Feed_Comments {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 5;
+  grid-row-end: 6;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+.Feed_Commnets_Ava img {
+  border-radius: 50%;
+}
+.Feed_Commnets_Ava {
+  margin-left: 40px;
+}
+.Feed_Comment_text {
+  background-color: rgb(247, 240, 240);
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: auto;
+  margin-left: 10px;
+}
+.Feed_Comment_text p {
+  margin: 0;
+  word-wrap: break-word; /* hoặc dùng word-break */
+  white-space: normal;
+  margin: 10px;
+  font-size: 14px;
+}
+.arena_showcomment ul {
+  list-style: none;
+}
+.arena_showcomment li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.list_NewFeed ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+}
+
+/* Ẩn thanh cuộn mặc định */
+.middle {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.middle::-webkit-scrollbar {
+  width: 0; /* Ẩn thanh cuộn trên Chrome, Safari và Opera */
+}

@@ -1,0 +1,126 @@
+<div class="container" (childEvent)="setTitle('Personal-profile')">
+  <div class="container_sub">
+    <div class="left">
+      <div class="content">
+        <div class="content_top">
+          <div class="div_logo">
+            <div class="div_logo_image">
+              <img
+                src="assets/images/HomePage/hung.jpg"
+                alt="logo web"/>
+                <p>HungSocial</p>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="content_mid">
+          <div class="content_mid_sub">
+            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/Dashboard/Home']" routerLinkActive="active" routerLinkActive="active" (click)="setTitle('Home')" >
+              <i class="bi bi-house"></i>
+              Home
+            </button>
+
+            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/Dashboard/Message']" routerLinkActive="active" (click)="setTitle('Message')">
+              <i class="bi bi-chat"></i>
+               Message
+            </button>
+            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/Dashboard/Notification']" routerLinkActive="active" (click)="setTitle('Notification')">
+              <i class="bi bi-bell"></i>
+               Notification
+            </button>
+            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/Dashboard/Profile']" routerLinkActive="active" (click)="setTitle('Profile')">
+              <i class="bi bi-person"></i>
+              Profile
+            </button>
+            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/Dashboard/Friend']" routerLinkActive="active" (click)="setTitle('Friend')">
+              <i class="bi bi-people"></i>
+              Friend
+            </button>
+            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/Dashboard/Setting']" routerLinkActive="active" (click)="setTitle('Setting')">
+              <i class="bi bi-gear"></i>
+               Setting
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="middle">
+      <div class="header">
+        <div class="tilePage">
+          <p id="TilePage">{{ title }}</p>
+        </div>
+        <div class="reload">
+          <i class="bi bi-arrow-clockwise" style="font-size: 24px"></i>
+        </div>
+      </div>
+
+
+      <div class="Content_Change">
+        <!-----router oulet-->
+        <router-outlet></router-outlet>
+        <router-outlet name="message"></router-outlet>
+        <!---end router oulet-->
+      </div>
+    </div>
+    <div class="right">
+      <div class="input">
+        <input type="text" id="" class="form-control" placeholder="Search..." />
+      </div>
+      <div class="input_icon">
+        <div class="boder_icon">
+          <i class="bi bi-search"></i>
+        </div>
+      </div>
+
+      <div class="online">
+        <ul>
+          <li>
+            <div class="img_dot">
+              <img
+                src="assets/images/HomePage/avatar.jpg"
+                alt=""
+                height="40px"
+                width="40px"
+              />
+              <div class="circle-icon">
+                <i class="bi bi-circle"></i>
+              </div>
+            </div>
+            <p>Wukong</p>
+          </li>
+
+          <li>
+            <div class="img_dot">
+              <img
+                src="assets/images/HomePage/avatar.jpg"
+                alt=""
+                height="40px"
+                width="40px"
+              />
+              <div class="circle-icon">
+                <i class="bi bi-circle"></i>
+              </div>
+            </div>
+            <p>Wukong</p>
+          </li>
+
+          <li>
+            <div class="img_dot">
+              <img
+                src="assets/images/HomePage/avatar.jpg"
+                alt=""
+                height="40px"
+                width="40px"
+              />
+              <div class="circle-icon">
+                <i class="bi bi-circle"></i>
+              </div>
+            </div>
+            <p>Wukong</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

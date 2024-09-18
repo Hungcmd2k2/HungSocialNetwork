@@ -1,0 +1,18 @@
+input, button {
+  border-radius: 50px; /* Bo góc 10px cho input và button */
+}
+
+.form-check-input {
+  border-radius: 5px; /* Bo góc cho checkbox */
+}
+.custom-login-btn {
+  background-color: rgba(97, 146, 244, 1); /* Màu nền */
+  color: white; /* Màu chữ */
+  width: 50%; /* Độ rộng */
+  border: none; /* Bỏ viền */
+}
+.custom-login-btn:hover {
+  background-color: #45a049; /* Màu khi hover */
+  cursor: pointer; /* Thay đổi con trỏ khi hover */
+}
+
