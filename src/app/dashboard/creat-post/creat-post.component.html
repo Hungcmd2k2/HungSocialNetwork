@@ -3,6 +3,9 @@
 <div class="avatar">
   <img src="assets/images/Sơn_Tùng_M-TP_-_Chúng_ta_của_tương_lai.png" alt="">
 </div>
+<div class="name">
+  <p style="margin: 0; padding: 0;">Đặng Hùng</p>
+</div>
 <div class="dropdown">
   <a
     class="btn btn-outline-secondary dropdown-toggle btn-sm"
@@ -31,12 +34,26 @@
 </div>
 
   <div class="row_2">
+    <textarea class="dynamic-textarea" placeholder="What about thinking....." rows="4"  style="resize: none;"></textarea>
+
 
   </div>
   <div class="row_3">
+    <div class="choose">
+      <label for="fileInput" class="custom-file-upload">
+        Select file
+    </label>
+    <input type="file" id="fileInput" class="file-input" (change)="onFileSelected($event)" multiple />
+    <div class="file-info">
+        <div *ngFor="let info of fileInfo">{{ info }}</div>
+    </div>
 
+
+
+    </div>
   </div>
   <div class="row_4">
-
+    <button><i style="margin-right: 5px;" class="bi bi-patch-plus"></i> Post</button>
+    <button><i style="margin-right: 5px;" class="bi bi-trash"></i> Cancel</button>
   </div>
 </div>

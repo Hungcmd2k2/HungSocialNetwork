@@ -2,6 +2,10 @@
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto auto auto auto;
+  background-color: rgb(212, 212, 212);
+  margin: 10px;
+  border-radius: 10px;
+  padding: 25px;
 }
 .avatar{
   overflow: hidden;
@@ -10,6 +14,7 @@
   height: 50px;
   width: 50px;
   border-radius: 50%;
+  margin-right: 10px;
 }
 
 .avatar img{
@@ -17,9 +22,110 @@
   height: 100%;
   width: 100%;
 }
+.name{
+  margin-right: 10px;
+}
 .row_1{
   grid-column: 1 2;
   grid-row: 1 2;
   display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 
+}
+.row_2{
+  grid-column: 1 2;
+  grid-row: 2 3;
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+ .row_2 textarea{
+  width: 100%;
+  height: 100%;
+}
+.dynamic-textarea {
+  width: 100%; /* Chiều rộng đầy đủ */
+  height: 100px; /* Chiều cao ban đầu */
+  box-sizing: border-box; /* Để padding không làm tăng kích thước */
+  border: none; /* Border mặc định */
+  transition: border-color 0.3s; /* Hiệu ứng chuyển đổi khi thay đổi border */
+  background-color: rgb(212, 212, 212);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.dynamic-textarea:focus {
+  outline: none; /* Xóa outline mặc định khi focus */
+  border-color: #313131; /* Giữ màu đen khi textarea được chọn */
+  /* box-shadow: 5px 5px 10px #3399FF; */
+}
+
+
+.row_3{
+  grid-column: 1 2;
+  grid-row: 3 4;
+  display: flex;
+
+}
+
+.choose{
+  width: 100%;
+  height: 300px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  flex-direction: column;
+}
+.row_4{
+  grid-column: 1 2;
+  grid-row: 4 5;
+  margin-top: 10px;
+  display: flex;
+}
+.row_4 button{
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(194, 194, 194);
+  height: 40px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input_choose{
+  border-radius: 10px;
+}
+
+.file-input {
+  display: none; /* Ẩn nút tệp mặc định */
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #007bff; /* Màu nền */
+  color: white; /* Màu chữ */
+  border-radius: 5px; /* Bo góc */
+  transition: background-color 0.3s; /* Hiệu ứng chuyển đổi */
+}
+
+.custom-file-upload:hover {
+  background-color: #0056b3; /* Màu nền khi hover */
+}
+
+.custom-file-upload:active {
+  background-color: #004494; /* Màu nền khi nhấn */
+}
+
+.file-count {
+  margin-top: 10px; /* Khoảng cách trên giữa label và số lượng tệp */
+  font-size: 14px; /* Kích thước chữ */
+}
+.file-info {
+  margin-top: 10px; /* Khoảng cách trên giữa label và thông tin tệp */
+  font-size: 14px; /* Kích thước chữ */
 }
