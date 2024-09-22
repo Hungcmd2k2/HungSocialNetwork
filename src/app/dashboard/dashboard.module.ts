@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard.component';
 import { MessageComponent } from './message/message.component';
 import { NotificationComponent } from './notification/notification.component';
 import { FriendComponent } from './friend/friend.component';
+import { CreatPostComponent } from './creat-post/creat-post.component';
 
 
 
@@ -18,6 +19,7 @@ import { FriendComponent } from './friend/friend.component';
     MessageComponent,
     NotificationComponent,
     FriendComponent,
+    CreatPostComponent,
 
 
   ],

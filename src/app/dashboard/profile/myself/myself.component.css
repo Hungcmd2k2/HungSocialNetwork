@@ -67,6 +67,13 @@ grid-row:2 ;
 }
 .information .name{
   margin-left: 30px;
+  display: flex;
+  align-items: center;
+}
+.information .name button{
+  margin-left: 10px;
+  border: none;
+  background-color: white;
 }
 .information p{
   padding: 0;

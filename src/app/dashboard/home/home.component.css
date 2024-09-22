@@ -10,13 +10,16 @@
 .whatthing{
   display: flex;
   grid-column-start: 2;
-  grid-column-end: 5 ;
+  grid-column-end: 6 ;
   align-items: center;
   justify-content: center;
-  width: 460px;
+  margin-right: 40px;
+  max-width: 100%;
+
 }
 .whatthing input{
   border-radius: 40px;
+
 }
 .avatar{
   display: flex;

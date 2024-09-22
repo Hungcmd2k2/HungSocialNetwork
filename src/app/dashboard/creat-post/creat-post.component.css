@@ -1,0 +1,25 @@
+.main{
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto auto;
+}
+.avatar{
+  overflow: hidden;
+  display: flex;
+  place-items: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.avatar img{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.row_1{
+  grid-column: 1 2;
+  grid-row: 1 2;
+  display: flex;
+
+}
