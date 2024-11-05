@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="container">
+    <div class="row">
+      <!-- Cột bên trái: Thông tin đăng nhập -->
+      <div class="col-md-6 d-flex flex-column justify-content-center border-left-column">
+        <h2 class="mb-4 text-center">Login</h2>
+        <form (ngSubmit)="onLogin()">
+          <div class="form-group mb-3">
+            <label for="username" class="mb-1">Username</label>
+            <input type="text" id="username" class="form-control" placeholder="Enter username">
+          </div>
+          <div class="form-group mb-3">
+            <label for="password " class="mb-1">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="Enter password">
+          </div>
+          <!-- Nút submit thu nhỏ và căn giữa -->
+          <div class="d-flex justify-content-center">
+            <button  type="submit" class="btn custom-login-btn " >Login</button>
+          </div>
+        </form>
+        <div class="text-center mt-3">
+          <span>You don't have an account? </span>
+          <a [routerLink]="['/Registration']" class="text-primary" style="text-decoration: none;">Registration</a>
+        </div>
+      </div>
+
+      <!-- Cột bên phải: Hình ảnh -->
+      <div class="col-md-6 d-none d-md-block">
+        <img [src]="randomImage" class="img-fluid" alt="Login Image">
+      </div>
+    </div>
+  </div>
+</div>
