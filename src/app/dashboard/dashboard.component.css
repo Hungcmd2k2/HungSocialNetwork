@@ -19,14 +19,18 @@
   border-bottom: 1px solid #e0dcdc;
   position: sticky;
   top: 0;
+  z-index: 1000;
 }
 .titlePage{
   grid-column-start: 1;
+
+
 }
 .tilePage p{
   margin: 10px;
   font-size: 24px;
   font-family: "Pacifico", cursive;
+
 
 }
 .reload{
@@ -37,68 +41,7 @@
  margin-right: 10px;
 }
 /*------Middd__*/
-.post{
-  margin: 10px;
-  display: grid;
-  grid-template-columns: 20% 20% 20% 20% 20%;
-  grid-template-rows: auto auto;
-  border: 1px solid rgb(151, 151, 151);
-  border-radius: 10px;
-  box-shadow:  0px 0px 5px rgba(0, 0, 0, 0.5);
-}
-.whatthing{
-  display: flex;
-  grid-column-start: 2;
-  grid-column-end: 5 ;
-  align-items: center;
-  justify-content: center;
-  width: 460px;
-}
-.whatthing input{
-  border-radius: 40px;
-}
-.avatar{
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  padding-right: 15px;
-  height: 80px;
-}
-.avatar img{
-  border-radius: 50%;
 
-}
-.line{
-  grid-column-start: 1;
-  grid-column-end: 6 ;
-  border-top:1px solid rgb(175, 175, 175) ;
-  margin-left: 10px;
-  margin-right: 10px;
-
-}
-.addImage{
-  grid-column-start: 1;
-  grid-column-end: 3;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  height: 50px;
-}
-.addImage p{
-  padding-left: 10px;
-  margin: 0;
-
-}
-.addVideo{
-  grid-column-start: 4;
-  display: flex;
-  align-items: center;
-  height: 50px;
-}
-.addVideo p{
-  padding-left: 10px;
-  margin: 0;
-}
 .newFeed{
   display: grid;
   grid-template-columns: 5% 90% 5%;
@@ -320,15 +263,18 @@ margin-bottom: 20px;
   display: flex;
   place-items: center;
 
-
-
-
 }
 .div_logo{
 display: flex;
 justify-content: center;
 flex-direction: column;
 }
+.content_bottom{
+  display: flex;
+justify-content: center;
+align-items: center;
+}
+
 .content_top {
 display: flex;
 justify-content: center;
@@ -343,39 +289,40 @@ align-items: center;
   top: 0;
   position: sticky;
   display:grid;
-  grid-template-columns: 10% 40% 40% 10% ;
-  grid-template-rows:20px 60px auto ;
+  grid-template-columns: 10% 80% 10% ;
+  grid-template-rows:5% 5% 60% auto ;
 }
-.input{
-  grid-row-start: 2;
+.result_search_user{
+  position: relative;
+  grid-row-start: 3;
+  grid-row-end:4 ;
   grid-column-start: 2;
-  grid-column-end: 4;
-  display: flex;
-  align-items: center;
+  grid-column-end: 3;
+  overflow: auto;
+  scrollbar-width: none;
 }
-.input input{
-  border-radius: 50px;
+.icon_search_user{
+  position: absolute !important; /* Đặt spinner trong thẻ cha */
+  top: 20%; /* Căn giữa theo chiều dọc */
+  left: 50%; /* Căn giữa theo chiều ngang */
+  transform: translateX(-50%);
+  transform: scale(0.5);
+
 }
-.input_icon{
-  display: flex;
-  align-items: center;
+.input_search {
+  position: absolute;
   grid-row-start: 2;
-  grid-column-start: 3;
-  grid-column-end: 4;
-  justify-content: end;
+  grid-row-end:3 ;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  width: 100%;
+
 }
-.input_icon i{
-  font-size: 24px;
-  padding-left: 3px;
+
+.input_search input {
+  border-radius: 10px;
 }
-.input_icon .boder_icon{
-  border: 1px solid rgb(199, 199, 199);
-  border-radius: 50px;
-  height: 38px;
-  width: 38px;
-  display: flex;
-  justify-content: center;
-}
+
 .online{
   grid-row-start: 3;
   grid-column-start:2 ;
@@ -428,4 +375,49 @@ margin-top: 25px;
   width: 0; /* Ẩn thanh cuộn trên Chrome, Safari và Opera */
 }
 
+ngx-spinner {
+  z-index: 9999; /* Đảm bảo spinner xuất hiện trên các thành phần khác */
+}
 
+/* css nội dung tìm kiêm*/
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-family: Arial, sans-serif;
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-info .name {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.profile-info .verified {
+  font-size: 0.8rem;
+  color: gray;
+}
+
+
+.list-group-item:hover {
+  cursor: pointer;
+  background-color: #ebebeb; /* Màu nền khi di chuột */
+}

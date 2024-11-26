@@ -1,212 +1,90 @@
-.post{
-  margin: 10px;
-  display: grid;
-  grid-template-columns: 20% 20% 20% 20% 20%;
-  grid-template-rows: auto auto;
-  border: 1px solid rgb(151, 151, 151);
-  border-radius: 10px;
-  box-shadow:  0px 0px 5px rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  
-}
-.whatthing{
-  display: flex;
-  grid-column-start: 2;
-  grid-column-end: 6 ;
-  align-items: center;
-  justify-content: center;
-  margin-right: 40px;
-  max-width: 100%;
-
-}
-.whatthing input{
-  border-radius: 40px;
-
-}
-.avatar{
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  overflow: hidden;
-  grid-column: 1 2;
-  grid-row: 1 2;
-  margin-left: 30px;
-  margin-bottom: 20px;
-
-}
-.avatar img{
- width: 100%;
- height: 100%;
- object-fit: cover;
-
-
-}
-.line{
-  grid-column-start: 1;
-  grid-column-end: 6 ;
-  border-top:1px solid rgb(175, 175, 175) ;
-  margin-left: 10px;
-  margin-right: 10px;
-
-}
-.addImage{
-  grid-column-start: 1;
-  grid-column-end: 3;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  height: 50px;
-}
-.addImage p{
-  padding-left: 10px;
-  margin: 0;
-
-}
-.addVideo{
-  grid-column-start: 4;
-  display: flex;
-  align-items: center;
-  height: 50px;
-}
-.addVideo p{
-  padding-left: 10px;
-  margin: 0;
-}
-.newFeed {
-  display: grid;
-  grid-template-columns: 5% 90% 5%;
-  grid-template-rows: 60px auto 300px auto auto;
-  margin: 10px;
-  border: 1px solid rgb(175, 175, 175);
-  border-radius: 10px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-}
-.Feed_Header {
-  grid-column-start: 2;
-  grid-row-start: 1;
-  grid-row-end: 2;
-  display: flex;
-  align-items: center;
-  margin-top: 15px;
-}
-.Feed_Header ul {
-  list-style: none;
-  margin: 0;
-}
-.Feed_Header ul li {
-  margin-left: 10px;
-}
-
-.Feed_Header_Avatar img {
-  border-radius: 50%;
-}
-.Feed_Header_Name p {
-  margin: 0;
-}
-.Feed_Header_Time p {
-  margin: 0;
-}
-.Feed_Status {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 2;
-  grid-row-end: 3;
-}
-.Feed_Status p {
-  margin: 0;
-  margin-top: 10px;
-  margin-left: 62px;
-  margin-bottom: 10px;
-  word-wrap: break-word; /* hoặc dùng word-break */
-  white-space: normal;
-}
-.Feed_Media {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 3;
-  grid-row-end: 4;
-
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-  overflow: hidden; /* Đảm bảo ảnh không vượt ra ngoài */
-}
-.Feed_Media img {
-  object-fit: contain;
-  border-radius: 10px;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-}
-.Feed_Interact {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 4;
-  grid-row-end: 5;
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-}
-.Feed_Comment_Input input {
-  border-radius: 20px;
-}
-.Feed_Comment_Input {
-  margin-left: 10px;
-  width: 100%;
-}
-.Feed_Comment_icon {
-  margin-left: 10px;
-}
-.Feed_Interact i {
-  font-size: 20px;
-}
-.Feed_Comments {
-  grid-column-start: 2;
-  grid-column-end: 3;
-  grid-row-start: 5;
-  grid-row-end: 6;
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-}
-.Feed_Commnets_Ava img {
-  border-radius: 50%;
-}
-.Feed_Commnets_Ava {
-  margin-left: 40px;
-}
-.Feed_Comment_text {
-  background-color: rgb(247, 240, 240);
-  border-radius: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  width: auto;
-  margin-left: 10px;
-}
-.Feed_Comment_text p {
-  margin: 0;
-  word-wrap: break-word; /* hoặc dùng word-break */
-  white-space: normal;
-  margin: 10px;
-  font-size: 14px;
-}
-.arena_showcomment ul {
-  list-style: none;
-}
-.arena_showcomment li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.list_NewFeed ul {
+.posts-list ul{
   list-style: none;
   margin: 0;
   padding: 0;
+}
+.instagram-post {
+  margin: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.profile-picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.post-time {
+  color: #888;
+  font-size: 12px;
+}
+.post-image{
+width: 100%;
+height:585px;
+overflow: hidden;
+display: flex; /* Sử dụng flexbox để căn giữa */
+justify-content: center; /* Căn giữa theo chiều ngang */
+align-items: center; /* Căn giữa theo chiều dọc */
+}
+.post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 
 }
+
+.post-interactions {
+  padding: 10px;
+}
+.interactions{
+  display: flex;
+  flex-direction: row;
+}
+.interactions .icon{
+  font-size: 24px;
+  padding: 7px;
+}
+.likes, .caption, .comments {
+  /* margin-bottom: 5px;
+  font-size: 14px; */
+}
+
+.add-comment textarea {
+  width: 100%;
+  padding: 8px;
+  height: 50px;
+  max-height: 100px;
+  font-size: 14px;
+  resize: none; /* Ngăn kéo dãn ô nhập liệu */
+  outline: none; /* Loại bỏ viền khi focus */
+  box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+  border: none;
+}
+.add-comment textarea:focus {
+  border: none; /* Xóa viền khi focus */
+  outline: none;
+}
+
+
 
 /* Ẩn thanh cuộn mặc định */
 .middle {
@@ -216,4 +94,41 @@
 
 .middle::-webkit-scrollbar {
   width: 0; /* Ẩn thanh cuộn trên Chrome, Safari và Opera */
+}
+/* Style cho story*/
+.story-list {
+  display: flex;
+  gap: 10px; /* Khoảng cách giữa các mục */
+  overflow-x: auto; /* Cuộn ngang nếu tràn màn hình */
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.story-item {
+  text-align: center;
+  width: 80px; /* Chiều rộng mỗi mục */
+}
+
+.story-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; /* Làm tròn hình ảnh */
+  border: 3px solid #f77737; /* Đường viền giống Instagram */
+  padding: 2px;
+  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4);
+}
+
+.story-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%; /* Đảm bảo ảnh bên trong cũng tròn */
+  object-fit: cover; /* Cắt ảnh vừa khung */
+}
+
+.story-name {
+  font-size: 12px;
+  margin-top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

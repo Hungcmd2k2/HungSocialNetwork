@@ -1,64 +1,68 @@
-.main{
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows:auto auto auto auto ;
+
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-.header_profile{
-  grid-row: 1 2;
-  grid-column: 1 2;
+
+.card-header {
+  background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient xanh dương */
+  color: white;
+  font-weight: bold;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  border: 1px solid rgb(163, 163, 163);
-  border-radius: 10px;
-  margin: 10px;
-  background-color: rgb(189, 189, 189);
+  padding: 1rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
-.edit_profile{
-  grid-row: 2 3;
-  grid-column: 1 2;
+
+.card-header button {
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
-.header_account{
-  grid-row: 3 4;
-  grid-column: 1 2;
+
+.card-header button:hover {
+  background: rgba(255, 255, 255, 0.5);
+  color: #0056b3;
 }
-.edit_account{
-  grid-row: 4 5;
-  grid-column: 1 2;
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #e9f3fd; /* Màu xanh nhạt */
 }
-.header_profile .buttons{
-  display: flex;
-  margin-left: auto
+
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
 }
-.header_profile .buttons button{
+
+.icon {
+  color: #007bff;
   margin-right: 10px;
-  border-radius: 10px;
-  padding: 5px;
-  border: 1px solid rgb(179, 179, 179);
-
-}
-.edit_profile{
-  background-color: rgb(236, 236, 236);
-
-  margin-left: 10px;
-  margin-right: 10px;
-  border-radius: 10px;
-}
-.edit_profile ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
 }
 
-.edit_profile li{
-  margin: 10px;
+.btn-primary {
+  background: linear-gradient(135deg, #0056b3, #007bff);
+  border: none;
+  transition: background-color 0.3s ease;
+}
 
+.btn-primary:hover {
+  background: linear-gradient(135deg, #004494, #0066d4);
 }
-.edit_profile li i{
-  margin-bottom: 10px;
-  margin-right: 5px;
+
+.section-header {
+  color: #0056b3;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
-.account{
-  display: flex;
-  align-items: center;
-}
+

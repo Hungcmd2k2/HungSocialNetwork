@@ -16,3 +16,44 @@ input, button {
   cursor: pointer; /* Thay đổi con trỏ khi hover */
 }
 
+
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Nền mờ 50% */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+
+/* Form ở giữa */
+.modal-form {
+  background-color: #fff;
+  padding: 20px;
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+
+small {
+  color: red; /* Màu chữ đỏ để nhấn mạnh lỗi */
+  font-size: 0.875rem; /* Kích thước nhỏ hơn cho văn bản chú thích */
+  font-weight: 500; /* Tăng độ đậm để dễ nhìn */
+  margin-top: 4px; /* Khoảng cách nhỏ phía trên */
+  display: block; /* Đảm bảo dòng riêng cho mỗi thông báo */
+}
+
+small::before {
+  content: "⚠ "; /* Thêm biểu tượng cảnh báo trước thông báo */
+  font-size: 1rem;
+  margin-right: 4px;
+}

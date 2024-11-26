@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './profile.component';
 import { MyselfComponent } from './myself/myself.component';
 import { EditComponent } from './edit/edit.component';
+import { UserOtherComponent } from './user-other/user-other/user-other.component';
 
 const routes: Routes = [
   {path:'',
@@ -13,6 +14,9 @@ const routes: Routes = [
       },
       {
         path:'Edit',component:EditComponent
+      },
+      {
+        path:'user-other/:username',component:UserOtherComponent
       },
       {
         path:'',redirectTo:'Myself',pathMatch:'full'

@@ -1,0 +1,51 @@
+<div class="profile">
+  <!-- Cover Photo -->
+  <div class="image-profile">
+    <img [src]="dataUser?.coverphoto" alt="cover-photo" class="cover-photo">
+    <img [src]="dataUser?.avatar" alt="Avatar" class="avatar">
+    <div class="action-buttons">
+      <button
+        class="btn me-2"
+        [ngClass]="{
+          'btn-outline-secondary': !isFollowing,
+          'btn-primary': isFollowing
+        }"
+        (click)="toggleFollow()">
+        <i [ngClass]="isFollowing ? 'bi bi-person-check' : 'bi bi-person-add'" class="icon"></i>
+        <span>{{ isFollowing ? 'Unfollow' : 'Follow' }}</span>
+      </button>
+      <button class="btn btn-outline-secondary"><i class="bi bi-chat-text icon"></i>Message</button>
+    </div>
+
+  </div>
+
+  <!-- Profile Info -->
+  <div class="profile-info text-center">
+    <h2>{{dataUser?.username}}</h2>
+    <p>{{dataUser?.fullname}}</p>
+  </div>
+
+  <!-- Profile Details -->
+  <div class="profile-details mt-4">
+    <h4>About Me</h4>
+    <ul>
+      <li><i class="bi bi-music-note"></i> Favorite Song: <div class="ps-1">{{dataUser?.lovesong}}</div></li>
+      <li><i class="bi bi-building"></i> University: <div class="ps-1">{{dataUser?.education}}</div></li>
+      <li><i class="bi bi-geo-alt"></i> Location: <div class="ps-1" style="overflow: hidden; white-space: nowrap;text-overflow: ellipsis;">{{dataUser?.address}}</div></li>
+      <li><i class="bi bi-cake2"></i> Birthday: <div class="ps-1">{{dataUser?.dob}}</div></li>
+      <li><i class="bi bi-globe"></i> Website: <a style="text-decoration:none;" href="{{dataUser?.linksocial}}" target="_blank" rel="noopener noreferrer">{{dataUser?.linksocial}}</a></li>
+      <li><i class="bi bi-envelope"></i><div class="ps-1">Email: <a>{{dataUser?.email}}</a></div> </li>
+    </ul>
+  </div>
+
+  <!-- Featured Photos -->
+  <div class="featured-photos mt-4">
+    <h4>Featured Photos</h4>
+    <ul class="photo-list">
+      <li><img src="https://via.placeholder.com/100" class="photo-item" alt="Photo 1"></li>
+      <li><img src="https://via.placeholder.com/100" class="photo-item" alt="Photo 2"></li>
+      <li><img src="https://via.placeholder.com/100" class="photo-item" alt="Photo 3"></li>
+    </ul>
+  </div>
+
+</div>

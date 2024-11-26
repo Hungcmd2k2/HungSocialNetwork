@@ -1,10 +1,8 @@
 input, button {
-  border-radius: 50px; /* Bo góc 10px cho input và button */
+  border-radius: 30px; /* Bo góc 10px cho input và button */
 }
 
-.form-check-input {
-  border-radius: 5px; /* Bo góc cho checkbox */
-}
+
 .custom-login-btn {
   background-color: rgba(97, 146, 244, 1); /* Màu nền */
   color: white; /* Màu chữ */
@@ -16,3 +14,16 @@ input, button {
   cursor: pointer; /* Thay đổi con trỏ khi hover */
 }
 
+small {
+  color: red; /* Màu chữ đỏ để nhấn mạnh lỗi */
+  font-size: 0.875rem; /* Kích thước nhỏ hơn cho văn bản chú thích */
+  font-weight: 500; /* Tăng độ đậm để dễ nhìn */
+  margin-top: 4px; /* Khoảng cách nhỏ phía trên */
+  display: block; /* Đảm bảo dòng riêng cho mỗi thông báo */
+}
+
+small::before {
+  content: "⚠ "; /* Thêm biểu tượng cảnh báo trước thông báo */
+  font-size: 1rem;
+  margin-right: 4px;
+}
