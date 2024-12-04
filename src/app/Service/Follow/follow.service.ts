@@ -29,4 +29,11 @@ export class FollowService {
         map((response) => response.body)
       );
         }
+
+  //Hàm lấy về danh sách mà mình đang  follow
+  List_Following(followerId:any):Observable<any> {
+    return this.http.get(`${this.apiUrl}/followingWho/${followerId}`,{observe:'response'}).pipe(
+      map((response) => response.body)
+    );
+      }
 }

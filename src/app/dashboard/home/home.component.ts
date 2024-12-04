@@ -1,9 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { PostService } from '../../Service/Post/post.service';
 import { ApiResponseBody } from '../../interFace/ApiResponseBody';
 
 import { PostForHome } from '../../interFace/PostForHome';
+import { from } from 'rxjs';
+import { concatMap, map, toArray } from 'rxjs/operators';
+import { FollowService } from '../../Service/Follow/follow.service';
+import { Router } from '@angular/router';
+import { LikeService } from '../../Service/Like/like.service';
+import { A } from '@angular/cdk/keycodes';
+import { CommentService } from '../../Service/Comment/comment.service';
+import { CommentRequest } from '../../interFace/CommentRequest';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +21,19 @@ import { PostForHome } from '../../interFace/PostForHome';
 
 export class HomeComponent implements OnInit {
   // Khai báo thuộc tính carousel với @ViewChild
+  @ViewChild('commentsContainer') commentsContainer!: ElementRef;
+
 
   userObject: any = null;
-  apiResponseBody : ApiResponseBody |null=null;
-  posts: PostForHome[] = [];
-  constructor(private toastr: ToastrService,private postService : PostService){};
+  apiResponseBody: ApiResponseBody | null = null;
+  post_showHTML: PostForHome[] = [];
+  List_Following = []; // Danh sách userId
+  detail = false;
+  selectedPost: any = null;
+
+  commentResquest: CommentRequest | null = null;
+  newComment: string = '';
+  constructor(private toastr: ToastrService, private postService: PostService, private followService: FollowService, private router: Router, private likeService: LikeService, private commentService: CommentService) { };
   ngOnInit(): void {
     this.Who();
   }
@@ -25,8 +41,8 @@ export class HomeComponent implements OnInit {
   Who() {
     const user = sessionStorage.getItem('session_user');
     if (user) {
-      // Chuyển chuỗi JSON thành object
       this.userObject = JSON.parse(user);
+      this.GetList_Following(this.userObject.userid);
     } else {
       this.toastr.error('You are not logged in yet', 'Notification', {
         closeButton: true,
@@ -36,23 +52,201 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  Show_Post_By_UserID() {
-    this.postService.getAllPostByUserId(this.userObject.userid).subscribe(response => {
+
+  GetList_Following(followerId: number) {
+    this.followService.List_Following(followerId).subscribe(response => {
       this.apiResponseBody = response;
-      console.log(this.apiResponseBody?.data);
+      this.List_Following = this.apiResponseBody?.data;
+      this.Show_Post_By_UserIDs();
+    })
+  }
 
-      // Chỉ lưu trữ nguyên chuỗi ngày giờ từ API mà không chuyển thành Date
-      this.posts = this.apiResponseBody?.data.map((post: PostForHome) => ({
-        ...post,
-        images: [`http://localhost:8080/api/files/1732527832303_hung2.jpg`,`http://localhost:8080/api/files/1732527832303_hung2.jpg`]  // Thêm ảnh vào mỗi bài đăng, nếu có
-      }));
+  Show_Post_By_UserIDs() {
+    if (!this.List_Following || !Array.isArray(this.List_Following) || this.List_Following.length === 0) {
+      this.toastr.info('Follow others to see posts', 'Notification', {
+        closeButton: true,
+        progressBar: true,
+        positionClass: 'toast-top-right',
+      });
+      return; // Thoát sớm nếu danh sách không hợp lệ
+    }
 
-      console.log(this.posts);
-    });
+    const posts: any[] = []; // Mảng để lưu trữ kết quả
 
+    from(this.List_Following) // Chuyển mảng userId thành Observable
+      .pipe(
+        concatMap(userId =>
+          this.postService.getAllPostByUserId(userId).pipe(
+            map(response => {
+              const userPosts: PostForHome[] = response?.data || [];
+              // Thêm thuộc tính liked mặc định là false(liked: false,totalLike:0,comments:[]})
+              return userPosts.map(post => ({ ...post, }));
+            })
+          )
+        ),
+        toArray() // Chuyển tất cả kết quả thành một mảng duy nhất
+      )
+      .subscribe({
+        next: results => {
+          // Hợp nhất tất cả các bài viết
+          results.forEach(userPosts => {
+            posts.push(...userPosts);
+          });
+
+          // Sắp xếp bài viết theo thời gian (mới nhất trước)
+          this.post_showHTML = posts.sort((a, b) => {
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          });
+
+          // console.log(this.post_showHTML);
+        },
+        error: err => {
+          console.error('Error fetching posts:', err);
+        }
+      });
   }
 
 
 
+  isVideo(media: string): boolean {
+    const videoExtensions = ['mp4', 'webm', 'ogg'];
+    const extension = media.split('.').pop()?.toLowerCase();
+    return videoExtensions.includes(extension || '');
+  }
+  //Hàm like
+  createCallback(postId: number): () => void {
+    return () => this.CheckLikeAndComment(postId);
+  }
+
+  CheckLikeAndComment(postId: number): void {
+    const likeRequest = { userId: this.userObject.userid, postId: postId };
+
+    this.likeService.isLike(likeRequest).subscribe(response => {
+      this.apiResponseBody = response;
+      const post = this.post_showHTML.find(p => p.id === postId);
+      if (this.apiResponseBody?.code === 200) {
+        if (post) post.liked = true;
+      } else {
+        // console.log('Bài viết này chưa like: id:' + postId);
+      }
+    });
+
+    this.likeService.totalLike(postId).subscribe(response => {
+      this.apiResponseBody = response;
+      const post = this.post_showHTML.find(p => p.id === postId);
+      if (this.apiResponseBody?.code === 200) {
+        const total = this.apiResponseBody.data;
+        if (post) post.totalLike = total;
+      } else {
+        console.log('có lỗi gì đó ở đoạn lấy số lượng like' + postId);
+      }
+    })
+
+    this.commentService.totalComment(postId).subscribe(response => {
+      this.apiResponseBody = response;
+      const post = this.post_showHTML.find(p => p.id === postId);
+      if (this.apiResponseBody?.code === 200) {
+        const total = this.apiResponseBody.data;
+        if (post) post.totalComment = total;
+      } else {
+        console.log('có lỗi gì đó ở đoạn lấy số lượng comment' + postId);
+      }
+    })
+  }
+
+  Like(postId: number) {
+    const post = this.post_showHTML.find(p => p.id === postId);
+    const likeRequest = { userId: this.userObject.userid, postId: postId };
+    this.likeService.Like(likeRequest).subscribe(response => {
+      this.apiResponseBody = response;
+      if (this.apiResponseBody?.code === 200) {
+        if (post) {
+          post.liked = !post.liked;
+          post.totalLike += 1;
+        }
+      } else {
+        console.log('Bài viết này chưa dc like: id:' + postId);
+      }
+    })
+  }
+
+  UnLike(postId: number) {
+    const post = this.post_showHTML.find(p => p.id === postId);
+    const likeRequest = { userId: this.userObject.userid, postId: postId };
+    this.likeService.UnLike(likeRequest).subscribe(response => {
+      this.apiResponseBody = response;
+      if (this.apiResponseBody?.code === 200) {
+
+        if (post) {
+          post.liked = !post.liked;
+          post.totalLike -= 1;
+        }
+
+      } else {
+        console.log('Bài viết này chưa dc like: id:' + postId);
+      }
+    })
+  }
+
+  /////////cooment
+  showComment(post: any): void {
+    this.selectedPost = post; // Lưu bài đăng đã chọn
+    this.getAllComment(post.id);
+
+
+
+  }
+  togglePostDetails(): void {
+    this.detail = false;
+    this.selectedPost = null;
+    window.location.reload();
+
+  }
+  //add comment
+  addComment(postIdRq: number, parentIdRq: any) {
+    if (this.newComment.trim()) {
+      const userIdRq = this.userObject.userid;
+      this.commentResquest = { userId: userIdRq, postId: postIdRq, content: this.newComment, parentId: parentIdRq }
+      console.log(this.commentResquest);
+      this.commentService.AddComment(this.commentResquest).subscribe(response => {
+        this.apiResponseBody = response;
+        if (this.apiResponseBody?.code === 200) {
+          this.getAllComment(postIdRq);
+          this.scrollToBottom(); // Cuộn xuống cuối cùng
+        }
+
+      })
+    }
+    else{
+      this.toastr.info('Conntent not null', 'Notification', {
+        closeButton: true,
+        progressBar: true,
+        positionClass: 'toast-top-right',
+      });
+    }
+  }
+  //Get all comment by postId;
+
+  getAllComment(postId: number) {
+    this.commentService.GetAllComment(postId).subscribe(response => {
+      this.apiResponseBody = response;
+      const dataComment = this.apiResponseBody?.data;
+      const post = this.post_showHTML.find(p => p.id === postId);
+      if (post) {
+        post.comments = dataComment;
+      }
+      this.detail = true;
+
+    })
+
+  }
+  //cuộn cmt
+  scrollToBottom() {
+    try {
+      this.commentsContainer.nativeElement.scrollTop = this.commentsContainer.nativeElement.scrollHeight;
+    } catch (err) {
+      console.error('Scroll error:', err);
+    }
+  }
 
 }

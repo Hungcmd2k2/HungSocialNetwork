@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard.component';
 import { NotificationComponent } from './notification/notification.component';
 import { CreatPostComponent } from './creat-post/creat-post.component';
+import { SettingComponent } from '../setting/setting.component';
 
 
 
@@ -30,7 +31,9 @@ const routes: Routes = [
         component:CreatPostComponent
       },
       {path: 'Friend',loadChildren: () => import('./friend/friend.module').then(m => m.FriendModule) },
-      {path:'Profile',loadChildren:()=>import('./profile/profile.module').then(m=>m.ProfileModule)}
+      {path:'Profile',loadChildren:()=>import('./profile/profile.module').then(m=>m.ProfileModule)},
+      { path: '', redirectTo: 'Home', pathMatch: 'full' },
+      {path:'Setting',component:SettingComponent}
 
     ]
   },

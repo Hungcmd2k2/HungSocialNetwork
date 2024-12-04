@@ -9,7 +9,7 @@ const routes: Routes = [
     component: MessageListComponent
   },
   {
-    path:'detail',
+    path:'detail/:userId',
     component:MessageDetailComponent
   }
 ];

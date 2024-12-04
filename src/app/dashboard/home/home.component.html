@@ -1,97 +1,47 @@
-<div class="story-list">
-  <!-- Story Item -->
-  <div class="story-item">
-    <div class="story-image">
-      <img src="https://via.placeholder.com/60" alt="Profile 1" />
-    </div>
-    <div class="story-name">nh.3.linh</div>
-  </div>
-
-  <div class="story-item">
-    <div class="story-image">
-      <img src="https://via.placeholder.com/60" alt="Profile 2" />
-    </div>
-    <div class="story-name">boyoung00</div>
-  </div>
-
-  <div class="story-item">
-    <div class="story-image">
-      <img src="https://via.placeholder.com/60" alt="Profile 3" />
-    </div>
-    <div class="story-name">lebong95</div>
-  </div>
-
-  <div class="story-item">
-    <div class="story-image">
-      <img src="https://via.placeholder.com/60" alt="Profile 4" />
-    </div>
-    <div class="story-name">roses_are_red</div>
-  </div>
-
-  <div class="story-item">
-    <div class="story-image">
-      <img src="https://via.placeholder.com/60" alt="Profile 5" />
-    </div>
-    <div class="story-name">leomessi</div>
-  </div>
-
-  <div class="story-item">
-    <div class="story-image">
-      <img src="https://via.placeholder.com/60" alt="Profile 6" />
-    </div>
-    <div class="story-name">dailywithleo</div>
-  </div>
-
-  <div class="story-item">
-    <div class="story-image">
-      <img src="https://via.placeholder.com/60" alt="Profile 7" />
-    </div>
-    <div class="story-name">minminmin</div>
-  </div>
-
-  <div class="story-item">
-    <div class="story-image">
-      <img src="https://via.placeholder.com/60" alt="Profile 8" />
-    </div>
-    <div class="story-name">thepodcast</div>
-  </div>
-</div>
-
 <div class="posts-list">
   <ul>
-    <li *ngFor="let post of posts; let post_i = index">
+    <li *ngFor="let post of post_showHTML; let post_i = index" [appCallOnInit]="createCallback(post.id)">
       <div class="instagram-post">
         <div class="post-header">
-          <img
-            src="https://via.placeholder.com/60"
-            alt="Profile"
-            class="profile-picture"
-          />
+          <img src="{{ post.userAvatar }}" alt="Profile" class="profile-picture" />
           <div class="user-info">
-            <span class="username">may__lily</span>
-            <span class="post-time"
-              >· {{ post.createdAt | date : "short" }}</span
-            >
+            <span class="username">{{ post.userName }}</span>
+            <span class="post-time">
+              {{ post.createdAt | date : "short" }}
+            </span>
           </div>
         </div>
-        <div
-          class="post-image"
-          *ngIf="post.images && post.images.length > 0; else noImage"
-        >
+        <div class="post-image" *ngIf="post.images && post.images.length > 0; else noImage">
           <!-- Post Image Carousel -->
-          <div id="carousel{{post_i}}" class="carousel slide post-image" data-bs-ride="carousel">
+          <div id="carousel-{{ post_i }}" class="carousel slide post-image" data-bs-ride="false">
             <div class="carousel-inner">
-              <div *ngFor="let image of post.images; let i = index" class="carousel-item" [class.active]="i === 0">
-                <img [src]="image" class="d-block w-100" alt="Image {{i + 1}}">
+              <div *ngFor="let media of post.images; let i = index" class="carousel-item" [class.active]="i === 0">
+                <!-- Kiểm tra nếu media là video -->
+                <ng-container *ngIf="isVideo(media); else showImage">
+                  <video [src]="media" class="d-block w-100" controls title="Video {{ i + 1 }}">
+                    ko HIEN THI DC VIDEO
+                  </video>
+                </ng-container>
+                <!-- Nếu là ảnh -->
+                <ng-template #showImage>
+                  <img [src]="media" class="d-block w-100" alt="Image {{ i + 1 }}" />
+                </ng-template>
               </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouse" data-bs-slide="prev">
+
+            <!-- Dấu chấm dot -->
+            <ol class="carousel-indicators">
+              <li *ngFor="let image of post.images; let i = index" [attr.data-bs-target]="'#carousel-' + post_i"
+                [attr.data-bs-slide-to]="i" [class.active]="i === 0"></li>
+            </ol>
+
+            <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carousel-' + post_i"
+              data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carousel-' + post_i"
+              data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
             </button>
           </div>
           <!------>
@@ -99,21 +49,35 @@
 
         <div class="post-interactions">
           <div class="interactions">
-            <div class="likes"><i class="bi bi-heart icon"></i></div>
-            <div class="comment"><i class="bi bi-chat-left icon"></i></div>
+            <div class="likes">
+              <div class="button-like" (click)="Like(post.id)">
+                <i *ngIf="!post.liked" class="bi bi-heart icon" [ngClass]="{ 'fade-in': !post.liked }"></i>
+              </div>
+
+              <div class="button-unlike" (click)="UnLike(post.id)">
+                <i *ngIf="post.liked" class="bi bi-heart-fill icon" style="color: red"
+                  [ngClass]="{ 'fade-in': post.liked }"></i>
+              </div>
+            </div>
+
+            <div class="comment" (click)="showComment(post)">
+              <i class="bi bi-chat-left icon"></i>
+            </div>
             <div class="share"><i class="bi bi-send icon"></i></div>
           </div>
-          <div class="total-like"><span>18,254 lượt thích</span></div>
+          <div class="caption" *ngIf="post.images && post.images.length > 0">
+            <span><strong>{{ post.userName }}</strong> {{ post.content }}</span>
+          </div>
+          <div class="total-like">
+            <span>{{ post.totalLike }} lượt thích</span>
+          </div>
           <ng-template #noImage>
-            <div class="caption">
-              <span><strong>may__lily</strong> {{ post.content }}</span>
+            <div class="caption" style="padding-left: 10px">
+              <span>{{ post.content }}</span>
             </div>
           </ng-template>
-          <div class="comments">
-            <span>Xem tất cả 25 bình luận</span>
-          </div>
-          <div class="add-comment">
-            <textarea placeholder="Thêm bình luận..."></textarea>
+          <div (click)="showComment(post)" class="comments" style="cursor: pointer">
+            <span>Xem tất cả {{ post.totalComment }} bình luận</span>
           </div>
         </div>
       </div>
@@ -121,4 +85,86 @@
   </ul>
 </div>
 
-<button (click)="Show_Post_By_UserID()">show</button>
+<div *ngIf="detail" class="post-details-overlay-in">
+  <div class="post-details-content-in">
+    <div class="left-in">
+      <!-- Image -->
+      <div class="post-image-in">
+        <div class="post-image" *ngIf="
+            selectedPost.images && selectedPost.images.length > 0;
+            else showContent
+          ">
+          <!-- Post Image Carousel -->
+          <div id="carousel-selected" class="carousel slide post-image" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div *ngFor="let media of selectedPost.images; let i = index" class="carousel-item"
+                [class.active]="i === 0">
+                <ng-container *ngIf="isVideo(media); else showImage">
+                  <video [src]="media" class="d-block w-100" controls title="Video {{ i + 1 }}"></video>
+                </ng-container>
+                <ng-template #showImage>
+                  <img [src]="media" class="d-block w-100" alt="Image {{ i + 1 }}" />
+                </ng-template>
+              </div>
+            </div>
+
+            <!-- Dấu chấm dot -->
+            <ol class="carousel-indicators">
+              <li *ngFor="let image of selectedPost.images; let i = index" [attr.data-bs-target]="'#carousel-selected'"
+                [attr.data-bs-slide-to]="i" [class.active]="i === 0"></li>
+            </ol>
+
+            <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carousel-selected'"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carousel-selected'"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+
+        <ng-template #showContent>
+          <div class="content-post-in">
+            <span>{{ selectedPost.content }}</span>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div class="right-in">
+      <div class="header-in">
+        <img [src]="selectedPost.userAvatar" alt="User Avatar" class="user-avatar-in" />
+        <div class="user-info-in">
+          <span class="username-in">{{ selectedPost.userName }}</span>
+          <span class="post-time-in">{{
+            selectedPost.createdAt | date : "short"
+            }}</span>
+        </div>
+        <button class="close-btn-in" (click)="togglePostDetails()">
+          <i class="bi bi-x-circle"></i>
+        </button>
+      </div>
+
+      <div class="comments-in" #commentsContainer>
+        <div class="caption-in">
+          <img [src]="selectedPost.userAvatar" alt="User Avatar" class="user-avatar-in" />
+          <span class="username-in">{{ selectedPost.userName }}:</span>
+          <span class="content-user-in">{{ selectedPost.content }}</span>
+        </div>
+        <div class="getComment-in" *ngFor="let comment of selectedPost.comments">
+          <img [src]="comment.userAvatar" alt="User Avatar" class="user-avatar-in" />
+          <span class="comment-user"><strong>{{ comment.userName }}:</strong></span>
+          <span class="comment-text">{{ comment.content }}</span>
+        </div>
+      </div>
+
+      <div class="coment-input-arena">
+        <input type="text" [(ngModel)]="newComment" placeholder="Comment..." class="form-control" />
+        <button (click)="addComment(selectedPost.id, null)" class="btn-send-in">
+          Đăng
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

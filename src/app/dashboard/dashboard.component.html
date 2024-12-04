@@ -108,8 +108,8 @@
         <div class="tilePage">
           <p id="TilePage">{{ title }}</p>
         </div>
-        <div class="reload">
-          <i class="bi bi-arrow-clockwise" style="font-size: 24px"></i>
+        <div class="reload" style="cursor: pointer;">
+          <i (click)="reloadCurrentPage()"  class="bi bi-arrow-clockwise" style="font-size: 24px"></i>
         </div>
       </div>
 
@@ -126,7 +126,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Search..."
+            placeholder="Search for users"
             [(ngModel)]="searchQuery"
             (keyup)="onSearch()"
           />

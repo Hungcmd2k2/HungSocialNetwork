@@ -39,7 +39,14 @@
  display: flex;
  align-items: center;
  margin-right: 10px;
+
 }
+.reload i:hover {
+  transform: scale(1.2); /* Phóng to 1.2 lần khi hover */
+  transition: transform 0.5s ease; /* Hiệu ứng chuyển động mượt mà */
+}
+
+
 /*------Middd__*/
 
 .newFeed{

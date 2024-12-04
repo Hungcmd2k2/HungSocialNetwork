@@ -36,14 +36,18 @@ export class RegistrationPageComponent implements OnInit {
     this.registrationForm = new FormGroup(
       {
         email: new FormControl('', [Validators.required, Validators.email]),
-        username: new FormControl('',[Validators.required,noWhitespaceOrDiacritics()] ),
-        password: new FormControl('', [Validators.required,Validators.minLength(6)]),
+        username: new FormControl('', [
+          Validators.required,
+          noWhitespaceOrDiacritics(),
+        ]),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(6),
+        ]),
         conf_password: new FormControl('', Validators.required),
       },
       { validators: passwordMatchValidator('password', 'conf_password') }
     );
-
-
   }
 
   ngOnInit(): void {
@@ -52,79 +56,76 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   //All Function
-  apiResponseBody:  ApiResponseBody | null = null;
-  apiResponse : HttpResponse<any> |null =null;
+  apiResponseBody: ApiResponseBody | null = null;
+  apiResponse: HttpResponse<any> | null = null;
 
   onSubmit(): void {
     if (this.registrationForm.valid) {
       const email = this.registrationForm.value.email;
-      this.checkEmail(email).subscribe(check_email =>{
-        if(check_email==true){
+      this.checkEmail(email).subscribe((check_email) => {
+        if (check_email == true) {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Email existed!',
           });
-        }
-        else{
+        } else {
           const username = this.registrationForm.value.username;
-          this.checkUsername(username).subscribe(check_username =>{
-            if(check_username== true){
+          this.checkUsername(username).subscribe((check_username) => {
+            if (check_username == true) {
               Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Username existed!',
               });
-            }
-            else{
+            } else {
               const formData = {
                 email: this.registrationForm.value.email,
                 username: this.registrationForm.value.username,
-                password: this.registrationForm.value.password
+                password: this.registrationForm.value.password,
               };
-              this.checkRegist(formData).subscribe(check_regist =>{
-                if(check_regist==true){
+              this.checkRegist(formData).subscribe((check_regist) => {
+                if (check_regist == true) {
                   Swal.fire({
-                    icon: "success",
-                    title: "Successful",
-                    text: "Account created successfully",
+                    icon: 'success',
+                    title: 'Successful',
+                    text: 'Account created successfully',
+                  });
+                } else {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Opp..',
+                    text: 'Have error during process registration',
                   });
                 }
-                else{
-                  Swal.fire({
-                    icon: "error",
-                    title: "Opp..",
-                    text: "Have error during process registration",
-                  });
-                }
-              })
+              });
             }
-          })
+          });
         }
       });
+    }
   }
-}
 
   checkEmail(email: string): Observable<boolean> {
     return this.userService.getUserByEmail(email).pipe(
-      map(response => {
+      map((response) => {
         this.apiResponseBody = response.body;
         return this.apiResponseBody?.code === 200;
       })
     );
   }
-  checkUsername(username : string) :Observable<boolean> {
+  checkUsername(username: string): Observable<boolean> {
     return this.userService.getUserByUsername(username).pipe(
-      map(response => {
+      map((response) => {
         this.apiResponseBody = response.body;
         return this.apiResponseBody?.code === 200;
       })
     );
   }
 
-  checkRegist(form:any): Observable<boolean>{
+  checkRegist(form: any): Observable<boolean> {
     return this.userService.createUser(form).pipe(
-      map(response =>{
+      map((response) => {
         this.apiResponseBody = response.body;
         return this.apiResponseBody?.code === 200;
       })

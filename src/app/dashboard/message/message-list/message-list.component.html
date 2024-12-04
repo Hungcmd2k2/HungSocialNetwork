@@ -1,175 +1,30 @@
-<div class="content">
-  <ul>
-    <li (click)="goMessDetail()" >
-      <div class="inside">
-        <div class="avatar">
-          <img
-            src="assets/images/HomePage/Wukong.jpg"
-            alt="avatar"
-            height="50px"
-            width="50px"
-          />
-        </div>
-        <div class="mid">
-          <div class="name">
-            <p>Đặng Hùng</p>
-          </div>
-          <div class="Mess">
-            <p>Alo Alooooo??? </p>
-          </div>
-        </div>
-        <div class="time">
-          <p>10:10</p>
+
+
+<div class="back">
+
+
+
+
+
+  <div class="message" >
+    <!-- <div class="profile-section">
+      <img src="{{user.avatar}}" alt="Avatar" loading="lazy" width="200" height="200" class="avatar">
+      <div class="profile-info">
+        <span class="username">danghungg17</span>
+        <span class="status">Ghi chú của bạn</span>
+      </div>
+    </div> -->
+
+    <div class="messages-list" *ngFor="let user of listDetail">
+      <div class="message-item" (click)="goMessDetail(user.userid)">
+        <img src="{{user.avatar}}" alt="User Avatar" loading="lazy" width="200" height="200" class="message-avatar">
+        <div class="message-info">
+          <span class="message-username">{{user.username}}</span>
+          <span class="message-time">Hoạt động 4 giờ trước</span>
         </div>
       </div>
 
-    </li>
-    <li>
-      <div class="inside">
-        <div class="avatar">
-          <img
-            src="assets/images/HomePage/Wukong.jpg"
-            alt="avatar"
-            height="50px"
-            width="50px"
-          />
-        </div>
-        <div class="mid">
-          <div class="name">
-            <p>Đặng Hùng</p>
-          </div>
-          <div class="Mess">
-            <p>Alo Alooooo???</p>
-          </div>
-        </div>
-        <div class="time">
-          <p>10:10</p>
-        </div>
-      </div>
 
-    </li>
-    <li>
-      <div class="inside">
-        <div class="avatar">
-          <img
-            src="assets/images/HomePage/Wukong.jpg"
-            alt="avatar"
-            height="50px"
-            width="50px"
-          />
-        </div>
-        <div class="mid">
-          <div class="name">
-            <p>Đặng Hùng</p>
-          </div>
-          <div class="Mess">
-            <p>Alo Alooooo???</p>
-          </div>
-        </div>
-        <div class="time">
-          <p>10:10</p>
-        </div>
-      </div>
-
-    </li>
-    <li>
-      <div class="inside">
-        <div class="avatar">
-          <img
-            src="assets/images/HomePage/Wukong.jpg"
-            alt="avatar"
-            height="50px"
-            width="50px"
-          />
-        </div>
-        <div class="mid">
-          <div class="name">
-            <p>Đặng Hùng</p>
-          </div>
-          <div class="Mess">
-            <p>Alo Alooooo???</p>
-          </div>
-        </div>
-        <div class="time">
-          <p>10:10</p>
-        </div>
-      </div>
-
-    </li>
-    <li>
-      <div class="inside">
-        <div class="avatar">
-          <img
-            src="assets/images/HomePage/Wukong.jpg"
-            alt="avatar"
-            height="50px"
-            width="50px"
-          />
-        </div>
-        <div class="mid">
-          <div class="name">
-            <p>Đặng Hùng</p>
-          </div>
-          <div class="Mess">
-            <p>Alo Alooooo???</p>
-          </div>
-        </div>
-        <div class="time">
-          <p>10:10</p>
-        </div>
-      </div>
-
-    </li>
-    <li>
-      <div class="inside">
-        <div class="avatar">
-          <img
-            src="assets/images/HomePage/Wukong.jpg"
-            alt="avatar"
-            height="50px"
-            width="50px"
-          />
-        </div>
-        <div class="mid">
-          <div class="name">
-            <p>Đặng Hùng</p>
-          </div>
-          <div class="Mess">
-            <p>Alo Alooooo??? </p>
-          </div>
-        </div>
-        <div class="time">
-          <p>10:10</p>
-        </div>
-      </div>
-
-    </li>
-    <li>
-      <div class="inside">
-        <div class="avatar">
-          <img
-            src="assets/images/HomePage/Wukong.jpg"
-            alt="avatar"
-            height="50px"
-            width="50px"
-          />
-        </div>
-        <div class="mid">
-          <div class="name">
-            <p>Đặng Hùng</p>
-          </div>
-          <div class="Mess">
-            <p>Alo Alooooo???</p>
-          </div>
-        </div>
-        <div class="time">
-          <p>10:10</p>
-        </div>
-      </div>
-
-    </li>
-
-  </ul>
+    </div>
+  </div>
 </div>
-
-

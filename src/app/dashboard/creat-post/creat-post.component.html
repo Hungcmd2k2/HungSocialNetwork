@@ -1,8 +1,5 @@
 <div class="Post">
   <form (ngSubmit)="onSubmit()" #postForm="ngForm">
-    <!-- Post Title -->
-
-
     <!-- Post Content -->
     <div class="mb-3">
       <label for="content" class="form-label">Post Content</label>
@@ -16,7 +13,6 @@
         required
       ></textarea>
     </div>
-
     <!-- File Attachment -->
     <div class="mb-3">
       <label for="file" class="form-label">File Attachment</label>
@@ -27,18 +23,18 @@
         (change)="onFileSelected($event)"
         multiple
       />
-
       <div class="mt-3">
         <!-- Preview hình ảnh -->
-<div class="file-previews">
-  <div *ngFor="let preview of previews ;let i = index" class="file-preview">
-    <img [src]="preview" alt="Preview Image" class="preview-img" />
-  </div>
-</div>
-
+        <div class="file-previews">
+          <div
+            *ngFor="let preview of previews; let i = index"
+            class="file-preview"
+          >
+            <img [src]="preview" alt="Preview Image" class="preview-img" />
+          </div>
+        </div>
       </div>
     </div>
-
     <!-- Privacy Options -->
     <div class="mb-3">
       <label for="privacy" class="form-label">Privacy</label>
@@ -49,12 +45,11 @@
         [(ngModel)]="post.privacy"
         required
       >
-        <option value="Public" >Public</option>
+        <option value="Public">Public</option>
         <option value="Private">Private</option>
         <option value="Follower">Follower</option>
       </select>
     </div>
-
     <!-- Additional Options -->
     <div class="mb-3">
       <label for="tags" class="form-label">Tags</label>
@@ -67,24 +62,18 @@
         name="tags"
       />
     </div>
-
     <!-- Submit Button -->
-    <button
-      type="submit"
-      class="btn btn-primary"
-      [disabled]="!postForm.valid"
-    >
+    <button type="submit" class="btn btn-primary" [disabled]="!postForm.valid">
       Post
     </button>
-
     <ngx-spinner
-          class="icon_search_user"
-          name="post_loading"
-          bdColor="transparent"
-          size="medium"
-          color="#2596be"
-          type="ball-clip-rotate-pulse"
-          [fullScreen]="false"
-        ></ngx-spinner>
+      class="icon_search_user"
+      name="post_loading"
+      bdColor="transparent"
+      size="medium"
+      color="#2596be"
+      type="ball-clip-rotate-pulse"
+      [fullScreen]="false"
+    ></ngx-spinner>
   </form>
 </div>

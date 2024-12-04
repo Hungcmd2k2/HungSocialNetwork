@@ -1,372 +1,223 @@
- <div class="background_top">
-  <div class="header-profile">
-    <div class="image">
-      <div class="cover-image">
-        <img src="assets/images/HomePage/Wukong.jpg" alt="cover photo">
-        <div class="avatar">
-         <img src="assets/images/HomePage/avatar.jpg" alt="avatar">
-       </div>
-       </div>
+<div class="profile">
+  <!-- Cover Photo -->
+  <div class="image-profile">
+    <img [src]="dataUser?.coverphoto" alt="cover-photo" class="cover-photo">
+    <div class="choseCover">
+      <input
+        type="file"
+        id="file"
+        class="file-input"
+        (change)="onFileSelected_Cover_Photo($event)"
+      />
     </div>
-  </div>
-
-</div>
-
-
-  <div class="background_mid">
-    <div class="information">
-      <div class="name">
-        <h5 style="margin: 0;">Đặng Hùng</h5>
-        <button [routerLink]="['/Dashboard/Profile/Edit']">  <i class="bi bi-three-dots" style="font-size: 20px;"></i></button>
-
-      </div>
-      <div class="total_friend">
-        <p>300 Friends</p>
-      </div>
-
-
-      <ul>
-        <li>
-          <div class="love-song">
-            <div class="img-song">
-              <img src="assets/images/Sơn_Tùng_M-TP_-_Chúng_ta_của_tương_lai.png" alt=" logo song">
-            </div>
-            <div class="infor-song">
-              <div class="name-song">
-                <p>Chúng ta của tương lai</p>
-              </div>
-              <div class="singer-song">
-                <p>Sơn Tùng M-TP</p>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="love-song">
-            <div class="img-song">
-              <img src="assets/images/logo-huce.jpg" alt="logo school">
-            </div>
-            <div class="infor-song">
-              <div class="name-song">
-                <p>Trường đại học Xây Dựng Hà Nội</p>
-              </div>
-              <div class="singer-song">
-                <p>2020 - Nay</p>
-              </div>
-            </div>
-          </div>
-        </li>
-
-
-        <li>
-          <div class="location">
-            <div class="icon">
-              <i class="bi bi-geo-alt" style="margin-right: 10px; font-size: 20px;"></i>
-            </div>
-            <div class="name-location">
-              <p style="padding: 0; margin: 0; "> Thái Bình</p>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="location">
-            <div class="icon">
-              <i class="bi bi-globe" style="margin-right: 10px;font-size: 20px"></i>
-            </div>
-            <div class="name-location">
-              <p style="padding: 0; margin: 0;"> hungsocial.com</p>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="location">
-            <div class="icon">
-              <i class="bi bi-envelope" style="margin-right: 10px;font-size: 20px"></i>
-            </div>
-            <div class="name-location">
-              <p style="padding: 0; margin: 0; "> hungdang16042002&#64;gmail.com</p>
-            </div>
-          </div>
-        </li>
-
-      </ul>
-      <div class="hightlight-image">
-        <h6 style="margin-top:10px ;margin-bottom: 20px;">Featured photo</h6>
-        <ul>
-          <li>
-            <div class="outside">
-              <div class="image">
-
-                  <!-- Danh sách ảnh thu nhỏ -->
-                  <img
-                    src="assets/images/img-hightlight.jpg"
-                    alt="Thumbnail"
-                    class="thumbnail"
-                    (click)="openFullscreen('assets/images/img-hightlight.jpg')">
-
-              </div>
-              <div class="image-infor">
-                <p style="padding: 0; margin: 0;">2020</p>
-              </div>
-            </div>
-          </li>
-
-          <li>
-            <div class="outside">
-              <div class="image">
-
-                  <!-- Danh sách ảnh thu nhỏ -->
-                  <img
-                    src="assets/images/Black_Myth_Wukong.jpg"
-                    alt="Thumbnail"
-                    class="thumbnail"
-                    (click)="openFullscreen('assets/images/Black_Myth_Wukong.jpg')">
-
-              </div>
-              <div class="image-infor">
-                <p style="padding: 0; margin: 0;">2020</p>
-              </div>
-            </div>
-          </li>
-        </ul>
-
-      </div>
-    </div>
+    <!-- Avatar -->
+    <div class="choseAvatar">   <input
+      type="file"
+      id="file"
+      class="file-input"
+      (change)="onFileSelected($event)"
+    /> </div>
+      <img [src]="dataUser?.avatar" alt="Avatar" class="avatar" >
 
   </div>
 
-<!-- Khung hiển thị ảnh toàn màn hình -->
-<div id="fullscreenOverlay" class="overlay" (click)="closeFullscreen()">
-  <img id="fullscreenImage" src="" alt="Full Image">
+
+  <!-- Profile Info -->
+  <div class="profile-info text-center">
+    <h2>{{dataUser?.username}}</h2>
+    <p>{{dataUser?.fullname}}</p>
+  </div>
+
+  <!-- Profile Details -->
+  <div class="profile-details mt-4">
+
+    <div class="edit-profile">
+      <h4 style="margin: 0;">About Me</h4>
+      <i class="bi bi-pencil-square" (click)="goEdit()"></i>
+    </div>
+    <ul>
+      <li><i class="bi bi-music-note"></i> Favorite Song: <div class="ps-1">{{dataUser?.lovesong}}</div></li>
+      <li><i class="bi bi-building"></i> University: <div class="ps-1">{{dataUser?.education}}</div></li>
+      <li><i class="bi bi-geo-alt"></i> Location: <div class="ps-1" style="overflow: hidden; white-space: nowrap;text-overflow: ellipsis;">{{dataUser?.address}}</div></li>
+      <li><i class="bi bi-cake2"></i> Birthday: <div class="ps-1">{{dataUser?.dob}}</div></li>
+      <li><i class="bi bi-globe"></i> Website: <a style="text-decoration:none;" href="{{dataUser?.linksocial}}" target="_blank" rel="noopener noreferrer">{{dataUser?.linksocial}}</a></li>
+      <li><i class="bi bi-envelope"></i><div class="ps-1">Email: <a>{{dataUser?.email}}</a></div> </li>
+    </ul>
+  </div>
+
+  <!-- Featured Photos -->
+  <div class="featured-photos mt-4">
+    <h4>Featured Photos</h4>
+    <ul class="photo-list">
+      <li><img src="https://via.placeholder.com/100" class="photo-item" alt="Photo 1"></li>
+      <li><img src="https://via.placeholder.com/100" class="photo-item" alt="Photo 2"></li>
+      <li><img src="https://via.placeholder.com/100" class="photo-item" alt="Photo 3"></li>
+    </ul>
+  </div>
+
 </div>
+<!-- ------------------------Feeed-------------- -->
 
-
-<div class="list_NewFeed">
+<div class="posts-list">
   <ul>
-    <li>
-      <div class="newFeed">
-        <div class="Feed_Header">
-          <div class="Feed_Header_Avatar">
-        <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:50px ;width: 50px;">
+    <li *ngFor="let post of post_showHTML; let post_i = index" [appChecklike]="createCallback(post.id)">
+      <div class="instagram-post">
+        <div class="post-header">
+          <img src="{{post.userAvatar}}" alt="Profile" class="profile-picture" />
+          <div class="user-info">
+            <span class="username">{{post.userName}}</span>
+            <span class="post-time">
+              {{ post.createdAt | date : "short" }}
+            </span>
           </div>
-          <ul>
-            <li>
-              <div class="Feed_Header_Name">
-              <p>Đặng Hùng</p>
-          </div>
-            </li>
-            <li>
-              <div class="Feed_Header_Time">
-                <p>1 Giờ trước</p>
+        </div>
+        <div class="post-image" *ngIf="post.images && post.images.length > 0; else noImage">
+          <!-- Post Image Carousel -->
+          <div id="carousel-{{ post_i }}" class="carousel slide post-image" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div *ngFor="let media of post.images; let i = index" class="carousel-item" [class.active]="i === 0">
+                <!-- Kiểm tra nếu media là video -->
+                <ng-container *ngIf="isVideo(media); else showImage">
+                  <video [src]="media" class="d-block w-100" controls title="Video {{ i + 1 }}">ko HIEN THI DC
+                    VIDEO</video>
+                </ng-container>
+                <!-- Nếu là ảnh -->
+                <ng-template #showImage>
+                  <img [src]="media" class="d-block w-100" alt="Image {{ i + 1 }}" />
+                </ng-template>
               </div>
-            </li>
-          </ul>
-        </div>
-        <div class="Feed_Status">
-          <p>“Nếu bạn muốn nghe sự thật, thành công của Game Science ngày nay được xây dựng dựa trên 4 lần thất bại liên tiếp</p>
-        </div>
-        <div class="Feed_Media">
-          <img src="assets/images/HomePage/Wukong.jpg" alt="">
-        </div>
-        <div class="Feed_Interact">
-          <div class="Feed_Like">
-            <i class="bi bi-heart"></i>
+            </div>
+
+            <!-- Dấu chấm dot -->
+            <ol class="carousel-indicators">
+              <li *ngFor="let image of post.images; let i = index" [attr.data-bs-target]="'#carousel-' + post_i"
+                [attr.data-bs-slide-to]="i" [class.active]="i === 0"></li>
+            </ol>
+
+            <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carousel-' + post_i"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carousel-' + post_i"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
           </div>
-                    <div class="Feed_Comment_icon">
-                      <i class="bi bi-chat"></i>
-                    </div>
-                    <div class="Feed_Comment_Input">
-                      <input type="text" id="" class="form-control" placeholder="Commnent...">
-                    </div>
+          <!------>
         </div>
-        <div class="Feed_Comments">
-          <div class="arena_showcomment">
-            <ul>
-              <li>
-                <div class="Feed_Commnets_Ava">
-                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
-                </div>
-                <div class="Feed_Comment_text">
-                   <p>Nếu bạn muốn nghe sự thật</p>
-                </div>
-              </li>
 
-              <li>
-                <div class="Feed_Commnets_Ava">
-                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
-                </div>
-                <div class="Feed_Comment_text">
-                   <p>Nếu bạn muốn nghe sự thật</p>
-                </div>
-              </li>
-
-              <li>
-                <div class="Feed_Commnets_Ava">
-                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
-                </div>
-                <div class="Feed_Comment_text">
-                   <p>Nếu bạn muốn nghe sự thật</p>
-                </div>
-              </li>
-
-
-            </ul>
-          </div>
-
-        </div>
-      </div>
-    </li>
-    <li>
-      <div class="newFeed">
-        <div class="Feed_Header">
-          <div class="Feed_Header_Avatar">
-        <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:50px ;width: 50px;">
-          </div>
-          <ul>
-            <li>
-              <div class="Feed_Header_Name">
-              <p>Đặng Hùng</p>
-          </div>
-            </li>
-            <li>
-              <div class="Feed_Header_Time">
-                <p>1 Giờ trước</p>
+        <div class="post-interactions">
+          <div class="interactions">
+            <div class="likes">
+              <div class="button-like" (click)="Like(post.id)" >
+                <i *ngIf="!post.liked" class="bi bi-heart icon" [ngClass]="{'fade-in': !post.liked}"></i>
               </div>
-            </li>
-          </ul>
-        </div>
-        <div class="Feed_Status">
-          <p>“Nếu bạn muốn nghe sự thật, thành công của Game Science ngày nay được xây dựng dựa trên 4 lần thất bại liên tiếp</p>
-        </div>
-        <div class="Feed_Media">
-          <img src="assets/images/HomePage/Wukong.jpg" alt="">
-        </div>
-        <div class="Feed_Interact">
-          <div class="Feed_Like">
-            <i class="bi bi-heart"></i>
-          </div>
-                    <div class="Feed_Comment_icon">
-                      <i class="bi bi-chat"></i>
-                    </div>
-                    <div class="Feed_Comment_Input">
-                      <input type="text" id="" class="form-control" placeholder="Commnent...">
-                    </div>
-        </div>
-        <div class="Feed_Comments">
-          <div class="arena_showcomment">
-            <ul>
-              <li>
-                <div class="Feed_Commnets_Ava">
-                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
-                </div>
-                <div class="Feed_Comment_text">
-                   <p>Nếu bạn muốn nghe sự thật</p>
-                </div>
-              </li>
 
-              <li>
-                <div class="Feed_Commnets_Ava">
-                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
-                </div>
-                <div class="Feed_Comment_text">
-                   <p>Nếu bạn muốn nghe sự thật</p>
-                </div>
-              </li>
-
-              <li>
-                <div class="Feed_Commnets_Ava">
-                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
-                </div>
-                <div class="Feed_Comment_text">
-                   <p>Nếu bạn muốn nghe sự thật</p>
-                </div>
-              </li>
-
-
-            </ul>
-          </div>
-
-        </div>
-      </div>
-    </li>
-    <li>
-      <div class="newFeed">
-        <div class="Feed_Header">
-          <div class="Feed_Header_Avatar">
-        <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:50px ;width: 50px;">
-          </div>
-          <ul>
-            <li>
-              <div class="Feed_Header_Name">
-              <p>Đặng Hùng</p>
-          </div>
-            </li>
-            <li>
-              <div class="Feed_Header_Time">
-                <p>1 Giờ trước</p>
+              <div class="button-unlike" (click)="UnLike(post.id)">
+                <i *ngIf="post.liked" class="bi bi-heart-fill icon" style="color: red;"
+                  [ngClass]="{'fade-in': post.liked}"></i>
               </div>
-            </li>
-          </ul>
-        </div>
-        <div class="Feed_Status">
-          <p>“Nếu bạn muốn nghe sự thật, thành công của Game Science ngày nay được xây dựng dựa trên 4 lần thất bại liên tiếp</p>
-        </div>
-        <div class="Feed_Media">
-          <img src="assets/images/HomePage/Wukong.jpg" alt="">
-        </div>
-        <div class="Feed_Interact">
-          <div class="Feed_Like">
-            <i class="bi bi-heart"></i>
+
+            </div>
+
+            <div class="comment" (click)="showComment(post)"><i class="bi bi-chat-left icon"></i></div>
+            <div class="share"><i class="bi bi-send icon"></i></div>
           </div>
-                    <div class="Feed_Comment_icon">
-                      <i class="bi bi-chat"></i>
-                    </div>
-                    <div class="Feed_Comment_Input">
-                      <input type="text" id="" class="form-control" placeholder="Commnent...">
-                    </div>
-        </div>
-        <div class="Feed_Comments">
-          <div class="arena_showcomment">
-            <ul>
-              <li>
-                <div class="Feed_Commnets_Ava">
-                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
-                </div>
-                <div class="Feed_Comment_text">
-                   <p>Nếu bạn muốn nghe sự thật</p>
-                </div>
-              </li>
-
-              <li>
-                <div class="Feed_Commnets_Ava">
-                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
-                </div>
-                <div class="Feed_Comment_text">
-                   <p>Nếu bạn muốn nghe sự thật</p>
-                </div>
-              </li>
-
-              <li>
-                <div class="Feed_Commnets_Ava">
-                  <img src="assets/images/HomePage/hung.jpg" alt="avatar" style="height:30px ;width: 30px;">
-                </div>
-                <div class="Feed_Comment_text">
-                   <p>Nếu bạn muốn nghe sự thật</p>
-                </div>
-              </li>
-
-
-            </ul>
+          <div class="caption" *ngIf="post.images && post.images.length > 0">
+            <span><strong>{{post.userName}}</strong> {{ post.content }}</span>
+          </div>
+          <div class="total-like"><span>{{post.totalLike}} lượt thích</span></div>
+          <ng-template #noImage>
+            <div class="caption" style="padding-left: 10px;">
+              <span>{{ post.content }}</span>
+            </div>
+          </ng-template>
+          <div (click)="showComment(post)" class="comments" style="cursor: pointer;">
+            <span>Xem tất cả {{post.totalComment}} bình luận</span>
           </div>
 
         </div>
+
       </div>
     </li>
   </ul>
+</div>
 
+<div *ngIf="detail" class="post-details-overlay-in">
+  <div class="post-details-content-in">
+    <div class="left-in">
+      <!-- Image -->
+      <div class="post-image-in">
+        <div class="post-image" *ngIf="selectedPost.images && selectedPost.images.length > 0; else showContent">
+          <!-- Post Image Carousel -->
+          <div id="carousel-selected" class="carousel slide post-image" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div *ngFor="let media of selectedPost.images; let i = index" class="carousel-item" [class.active]="i === 0">
+                <ng-container *ngIf="isVideo(media); else showImage">
+                  <video [src]="media" class="d-block w-100" controls title="Video {{ i + 1 }}"></video>
+                </ng-container>
+                <ng-template #showImage>
+                  <img [src]="media" class="d-block w-100" alt="Image {{ i + 1 }}" />
+                </ng-template>
+              </div>
+            </div>
+
+            <!-- Dấu chấm dot -->
+            <ol class="carousel-indicators">
+              <li *ngFor="let image of selectedPost.images; let i = index" [attr.data-bs-target]="'#carousel-selected'"
+                [attr.data-bs-slide-to]="i" [class.active]="i === 0"></li>
+            </ol>
+
+            <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carousel-selected'"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carousel-selected'"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+
+
+        </div>
+
+        <ng-template #showContent>
+            <div class="content-post-in">
+              <span>{{selectedPost.content}}</span>
+            </div>
+        </ng-template>
+
+      </div>
+    </div>
+    <div class="right-in">
+      <div class="header-in">
+        <img [src]="selectedPost.userAvatar" alt="User Avatar" class="user-avatar-in"/>
+        <div class="user-info-in">
+          <span class="username-in">{{ selectedPost.userName }}</span>
+          <span class="post-time-in">{{ selectedPost.createdAt | date: 'short' }}</span>
+        </div>
+        <button class="close-btn-in" (click)="togglePostDetails()"><i class="bi bi-x-circle"></i></button>
+      </div>
+
+      <div class="comments-in" #commentsContainer>
+        <div class="caption-in">
+          <img [src]="selectedPost.userAvatar" alt="User Avatar" class="user-avatar-in" />
+          <span class="username-in">{{ selectedPost.userName }}:</span>
+          <span class="content-user-in">{{ selectedPost.content }}</span>
+        </div>
+        <div class="getComment-in" *ngFor="let comment of selectedPost.comments">
+          <img [src]="comment.userAvatar" alt="User Avatar" class="user-avatar-in" />
+          <span class="comment-user"><strong>{{ comment.userName }}:</strong></span>
+          <span class="comment-text">{{ comment.content}}</span>
+        </div>
+      </div>
+
+      <div class="coment-input-arena">
+        <input type="text" [(ngModel)]="newComment" placeholder="Comment..." class="form-control" />
+        <button (click)="addComment(selectedPost.id,null)" class="btn-send-in">Đăng</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 

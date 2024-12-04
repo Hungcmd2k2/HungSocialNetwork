@@ -90,7 +90,6 @@ export class LoginPageComponent implements OnInit {
           map(response =>{
             this.apiResponseBody = response.body;
             this.loginResponse = this.apiResponseBody?.data;
-            console.log(this.loginResponse?.userid);
             if(this.loginResponse){
               const user= JSON.stringify(this.loginResponse);
               sessionStorage.setItem('session_user',user);

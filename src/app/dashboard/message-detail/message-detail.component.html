@@ -1,79 +1,34 @@
-
-<div class="background">
-  <div class="chat-container">
-    <div class="chat-header">
-      <div (click)="backMess()" class="icon-left">
-        <i class="bi bi-arrow-return-left " style="padding-right: 5px; font-size: 24px;" ></i>
+<div class="tab-mess-detail">
+  <div class="chat-container" *ngFor="let user of userReceiverInfo">
+    <!-- Phần header -->
+    <div class="chat-header" >
+      <div class="header-avatar">
+      <img src="{{user.avatar}}" alt="Avatar">
       </div>
-      <div class="icon-right">
-        <i class="bi bi-info-circle" style="font-size: 24px;"></i>
+      <div class="header-info">
+        <div class="user-name">{{user.username}}</div>
+        <div class="status">Đang hoạt động</div>
       </div>
     </div>
 
-    <div class="chat-box" #chatBox>
-
-       <div class="message-wrapper-sent">
-        <div class="message-sent">
-          <p>Hello! How are you? </p>
+    <!-- Phần danh sách tin nhắn -->
+    <div class="message-list" #chatContainer>
+      <div *ngFor="let message of messages" class="message"
+        [ngClass]="{ 'right': message.senderId === senderId, 'left': message.senderId !== senderId }">
+        <div *ngIf="message.senderId !== senderId" class="avatar">
+          <img src="{{user.avatar}}" alt="Avatar">
         </div>
-        <span class="time">10:00 AM</span>
-       </div>
-
-       <div class="message-wrapper-received">
-        <div class="message-received">
-          <p>Hello! How are you? </p>
+        <div class="message-bubble">
+          {{ message.content }}
         </div>
-        <span class="time">10:00 AM</span>
-       </div>
-       <div class="message-wrapper-received">
-        <div class="message-received">
-          <p>Hello! How are you? </p>
-        </div>
-        <span class="time">10:00 AM</span>
-       </div>
-       <div class="message-wrapper-received">
-        <div class="message-received">
-          <p>Hello! How are you? </p>
-        </div>
-        <span class="time">10:00 AM</span>
-       </div>
-       <div class="message-wrapper-received">
-        <div class="message-received">
-          <p>Hello! How are you? </p>
-        </div>
-        <span class="time">10:00 AM</span>
-       </div>
-       <div class="message-wrapper-received">
-        <div class="message-received">
-          <p>Hello! How are you? </p>
-        </div>
-        <span class="time">10:00 AM</span>
-       </div>
-
-       <div class="message-wrapper-received">
-        <div class="message-received">
-          <p>Hello! How are you? </p>
-        </div>
-        <span class="time">10:00 AM</span>
-       </div>
-       <div class="message-wrapper-received">
-        <div class="message-received">
-          <p>Hello! How are you? </p>
-        </div>
-        <span class="time">10:00 AM</span>
-       </div>
-
-       <div class="message-wrapper-sent">
-        <div class="message-sent">
-          <p>Hello! How are you? </p>
-        </div>
-        <span class="time">10:00 AM</span>
-       </div>
+      </div>
     </div>
 
-    <div class="chat-input">
-      <input type="text" id="messageInput" placeholder="Type a message..." />
-      <button id="sendButton"><i class="bi bi-send"></i>Send</button>
+    <!-- Phần nhập tin nhắn -->
+    <div class="message-input">
+      <input type="text" placeholder="Nhập tin nhắn..." [(ngModel)]="newMessage" #messageInput
+        (keyup.enter)="sendMessage()" />
+      <button (click)="sendMessage()">Gửi</button>
     </div>
   </div>
 </div>

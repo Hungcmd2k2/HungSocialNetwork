@@ -12,6 +12,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from 'ngx-toastr';
 import { customInterceptor } from './interceptor/custom.interceptor';
+import { SettingComponent } from './setting/setting.component';
+
+
 
 
 @NgModule({
@@ -20,6 +23,8 @@ import { customInterceptor } from './interceptor/custom.interceptor';
     LoginPageComponent,
     RegistrationPageComponent,
     NotFoundPageComponent,
+    SettingComponent,
+
 
   ],
   imports: [

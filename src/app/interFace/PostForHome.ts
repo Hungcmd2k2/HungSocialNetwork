@@ -1,10 +1,20 @@
+
+
 export interface PostForHome{
+  userAvatar:string;
+  userName:string;
+  images:[];
   id: number;
   userId: number;
-  content: string;  // Dùng kiểu string thay vì String
-  privacy: string;  // Dùng kiểu string thay vì String
-  tags: string;     // Dùng kiểu string thay vì String
-  createdAt: string;  // Giữ kiểu string ban đầu từ API
-  updatedAt: string;  // Giữ kiểu string ban đầu từ API
-  images: string[];  // Mảng các đường dẫn đến hình ản
+  content: string;
+  privacy: string;
+  tags: string;
+  createdAt: string;
+  updatedAt: string;
+  liked: boolean;
+  totalLike:number;
+  totalComment:number;
+  comments: { userAvatar:string,userName: string; content: string }[];
 }
+
+

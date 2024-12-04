@@ -9,6 +9,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { FriendComponent } from './friend/friend.component';
 import { CreatPostComponent } from './creat-post/creat-post.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CallOnInitDirective } from './directives/call-on-init.directive';
 
 
 
@@ -20,6 +21,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NotificationComponent,
     FriendComponent,
     CreatPostComponent,
+    CallOnInitDirective,
 
 
 
@@ -29,6 +31,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     DashboardRoutingModule,
     FormsModule,
     NgxSpinnerModule,
+
   ],
+
 })
 export class DashboardModule { }
