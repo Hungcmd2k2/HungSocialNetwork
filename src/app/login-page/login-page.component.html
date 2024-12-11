@@ -1,52 +1,63 @@
-<div class="d-flex justify-content-center align-items-center min-vh-100">
-  <div class="container">
+<div class="d-flex justify-content-center align-items-center min-vh-100" style="background: linear-gradient(135deg, #74b9ff, #a29bfe);">
+  <div class="container rounded shadow-lg" style="background: #ffffff; max-width: 900px; overflow: hidden;">
     <div class="row">
       <!-- Cột bên trái: Thông tin đăng nhập -->
-      <div class="col-md-6 d-flex flex-column justify-content-center border-left-column">
-        <h2 class="mb-4 text-center">Login</h2>
-        <form [formGroup]="loginForm" (ngSubmit)="onLogin()" >
-          <div class="form-group mb-3">
-            <input type="text" formControlName="email"  id="username" class="form-control" placeholder=" Email" autocomplete="username">
+      <div class="col-md-6 d-flex flex-column justify-content-center p-5">
+        <h2 class="mb-4 text-center" style="color: #2d3436; font-weight: 700;">Welcome Back</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <div class="form-group mb-4">
+            <label for="email" class="form-label" style="font-weight: 500; color: #636e72;">Email Address</label>
+            <input type="text" formControlName="email" id="email" class="form-control shadow-sm" placeholder="Enter your email" autocomplete="username" style="padding: 12px;">
             <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-              <small *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</small>
-              <small *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format.</small>
+              <small *ngIf="loginForm.get('email')?.errors?.['required']" class="text-danger">Email is required.</small>
+              <small *ngIf="loginForm.get('email')?.errors?.['email']" class="text-danger">Invalid email format.</small>
             </div>
           </div>
-          <div class="form-group mb-3" style="position: relative;">
+          <div class="form-group mb-4" style="position: relative;">
+            <label for="password" class="form-label" style="font-weight: 500; color: #636e72;">Password</label>
             <input
               [type]="showPassword ? 'text' : 'password'"
               formControlName="password"
               id="password"
-              class="form-control"
-              placeholder="Password"
+              class="form-control shadow-sm"
+              placeholder="Enter your password"
               autocomplete="new-password"
-            />
+              style="padding: 12px;">
             <button
               type="button"
               (click)="togglePasswordVisibility()"
-              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none;"
-            >
+              style="position: absolute; right: 10px; top: 70%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #636e72;">
               <i [ngClass]="showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
             </button>
           </div>
-          <!-- Nút submit thu nhỏ và căn giữa -->
-          <div class="d-flex justify-content-center">
-            <button [disabled]="loginForm.invalid" type="submit" class="btn custom-login-btn " >Login</button>
+          <div class="d-flex justify-content-center mb-3">
+            <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary shadow" style="width: 100%; padding: 12px; font-weight: 600;">Login</button>
           </div>
         </form>
-        <div class="text-center mt-3">
-          <span>You don't have an account? </span>
-          <a [routerLink]="['/Registration']" class="text-primary" style="text-decoration: none;">Registration</a>
+        <div class="text-center">
+          <span style="color: #636e72;">Don’t have an account? </span>
+          <a [routerLink]="['/Registration']" class="text-primary" style="font-weight: 600; text-decoration: none;">Sign Up</a>
         </div>
       </div>
 
       <!-- Cột bên phải: Hình ảnh -->
-      <div class="col-md-6 d-none d-md-block">
-        <img [src]="randomImage" class="img-fluid" alt="Login Image">
+      <div class="col-md-6 d-none d-md-block p-0">
+        <div style="height: 100%; overflow: hidden; position: relative;">
+          <img [src]="randomImage" class="img-fluid" alt="Login Image" style="width: 100%; height: 100%; object-fit: cover;">
+          <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.4);"></div>
+        </div>
       </div>
     </div>
   </div>
+
+  <ngx-spinner
+    name="load"
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-spin-fade"
+    [fullScreen]="false"
+    ><p style="color: white">Loading...</p></ngx-spinner
+  >
 </div>
-
-
 

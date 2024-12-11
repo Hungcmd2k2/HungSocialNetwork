@@ -1,79 +1,89 @@
-<div class="d-flex justify-content-center align-items-center min-vh-100">
+<div class="d-flex justify-content-center align-items-center min-vh-100" style="background: linear-gradient(135deg,#a29bfe, #74b9ff );">
   <div class="container">
     <div class="row">
       <!-- Cột bên trái: Hình ảnh -->
-      <div class="col-md-6 d-none d-md-block" >
-        <img [src]="randomImage" class="img-fluid" alt="Login Image">
+      <div class="col-md-6 d-none d-md-block">
+        <img [src]="randomImage" class="img-fluid" alt="Registration Image">
       </div>
-      <!-- Cột bên phải: Thông tin đăng nhập -->
-      <div class="col-md-6 d-flex flex-column justify-content-center border-left-column">
-        <h2 class="mb-4 text-center">Registration</h2>
-        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" >
+      <!-- Cột bên phải: Form đăng ký -->
+      <div class="col-md-6 d-flex flex-column justify-content-center">
+        <h2>Registration</h2>
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
           <div class="form-group mb-3">
-            <input type="text" formControlName="email" name="email" id="email" class="form-control" placeholder="Email">
+            <input type="text" formControlName="email" class="form-control" placeholder="Email">
             <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
               <small *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required.</small>
               <small *ngIf="registrationForm.get('email')?.errors?.['email']">Invalid email format.</small>
             </div>
           </div>
           <div class="form-group mb-3">
-            <input type="text" formControlName="username" name="username" id="username" class="form-control" placeholder="UserName" autocomplete="username">
+            <input type="text" formControlName="username" class="form-control" placeholder="Username" autocomplete="username">
             <div *ngIf="registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched">
               <small *ngIf="registrationForm.get('username')?.hasError('invalidUsername')">Username must not contain spaces or accented characters</small>
             </div>
-
           </div>
           <div class="form-group mb-3">
-            <input type="password" formControlName="password" name="password" id="password" class="form-control" placeholder="Password" autocomplete="new-password">
+            <input type="password" formControlName="password" class="form-control" placeholder="Password" autocomplete="new-password">
             <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched">
-              <small>Password must least 6 characters long</small>
+              <small>Password must be at least 6 characters long.</small>
             </div>
-
           </div>
           <div class="form-group mb-3">
-            <input type="password" formControlName="conf_password" name="conf_password" id="conf_password" class="form-control" placeholder="Confirm Password" autocomplete="new-password">
+            <input type="password" formControlName="conf_password" class="form-control" placeholder="Confirm Password" autocomplete="new-password">
             <div *ngIf="registrationForm.errors?.['passwordMismatch'] && registrationForm.get('conf_password')?.touched">
               <small>Passwords do not match.</small>
             </div>
-
           </div>
-
-          <!-- Nút submit thu nhỏ và căn giữa -->
           <div class="d-flex justify-content-center">
             <button type="submit" [disabled]="registrationForm.invalid" class="btn custom-login-btn">Register</button>
           </div>
         </form>
-
-
         <div class="text-center mt-3">
-          <span>You have an account? </span>
-          <a [routerLink]="['/Login']" class="text-primary" style="text-decoration: none;">Login</a>
+          <span>Already have an account?</span>
+          <a [routerLink]="['/Login']" class="text-primary">Login</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-
-<div class="overlay hidden" id="overlay" *ngIf="isFormOpen">
+<!-- Modal OTP -->
+<div class="overlay" id="overlay" *ngIf="isFormOpen">
   <div class="modal-form">
-  <div class="Account_Name" style="margin-bottom: 20px;">
-    <h5>Account Name</h5>
-  </div>
-    <form  autocomplete="off" >
-      <div class="form-group mb-3">
-        <input type="text" id="Otp" class="form-control" placeholder="Enter OTP..">
+    <h5>Verify Your Account</h5>
+    <form autocomplete="off">
+      <div class="form-group">
+        <input type="text" id="Otp" class="form-control" placeholder="Enter OTP" [(ngModel)]="otp"  [ngModelOptions]="{standalone: true}"/>
       </div>
       <div>
-        <a  style="text-decoration: none; cursor: pointer;" [ngStyle]="{'pointer-events': isLinkDisabled ? 'none' : 'auto', 'color': isLinkDisabled ? 'grey' : 'blue'}"  (click)="resendOTP()" *ngIf="!isLinkDisabled">
-          <p>Resend the OTP code?</p>
+        <a style="cursor: pointer;" [ngStyle]="{'pointer-events': isLinkDisabled ? 'none' : 'auto', 'color': isLinkDisabled ? 'grey' : 'blue'}" (click)="resendOTP()">
+          <p *ngIf="!isLinkDisabled">Resend the OTP code?</p>
         </a>
         <p *ngIf="isLinkDisabled">You can resend the OTP in <span>{{ countdown }}</span> seconds.</p>
       </div>
-      <!-- Nút submit thu nhỏ và căn giữa -->
       <div class="d-flex justify-content-center">
-        <button (click)="closeForm()" type="submit" class="btn custom-login-btn " >Confirm</button>
+        <button (click)="RegistrationForm()" type="submit" class="btn custom-login-btn">Confirm</button>
       </div>
     </form>
+    <ngx-spinner
+    name="load_otp"
+    bdColor="transparent"
+    size="medium"
+    color="rgb(60, 60, 60)"
+    type="ball-spin-fade"
+    [fullScreen]="false"
+    ></ngx-spinner
+    >
   </div>
+
 </div>
+
+<ngx-spinner
+name="load"
+bdColor="rgba(0, 0, 0, 0.8)"
+size="medium"
+color="#fff"
+type="ball-spin-fade"
+[fullScreen]="true"
+><p style="color: white">Loading...</p></ngx-spinner
+>

@@ -1,0 +1,59 @@
+<div class="Post">
+  <form (ngSubmit)="onSubmit()" #postForm="ngForm">
+    <!-- Post Content -->
+    <div class="mb-3">
+      <label for="content" class="form-label">Post Content</label>
+      <textarea
+        type="text"
+        id="content"
+        class="form-control"
+        rows="5"
+        name="content"
+        [(ngModel)]="post.content"
+        required
+      ></textarea>
+    </div>
+    <!-- File Attachment -->
+
+    <!-- Privacy Options -->
+    <div class="mb-3">
+      <label for="privacy" class="form-label">Privacy</label>
+      <select
+        id="privacy"
+        class="form-select"
+        name="privacy"
+        [(ngModel)]="post.privacy"
+        required
+      >
+        <option value="Public">Public</option>
+        <option value="Private">Private</option>
+        <option value="Follower">Follower</option>
+      </select>
+    </div>
+    <!-- Additional Options -->
+    <div class="mb-3">
+      <label for="tags" class="form-label">Tags</label>
+      <input
+        type="text"
+        id="tags"
+        class="form-control"
+        placeholder="Enter tags, separated by commas"
+        [(ngModel)]="post.tags"
+        name="tags"
+      />
+    </div>
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary" [disabled]="!postForm.valid">
+      Save
+    </button>
+    <ngx-spinner
+      class="icon_search_user"
+      name="post_loading"
+      bdColor="transparent"
+      size="medium"
+      color="#2596be"
+      type="ball-clip-rotate-pulse"
+      [fullScreen]="false"
+    ></ngx-spinner>
+  </form>
+</div>

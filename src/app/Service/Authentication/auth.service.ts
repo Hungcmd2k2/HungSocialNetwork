@@ -1,3 +1,4 @@
+import { environment } from './../Config/environment';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
@@ -14,7 +15,8 @@ interface User {
 export class AuthService {
 
   constructor(private http: HttpClient) { }
-  private apiUrl = 'http://localhost:8080/auth';
+  private url =environment.apiUrl;
+  private apiUrl = this.url + '/api/auth';
 
   callApiLogin(user: any): Observable<HttpResponse<any>> {
     return this.http.post(`${this.apiUrl}/login`, user,{observe:'response'});

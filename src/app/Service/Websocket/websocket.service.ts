@@ -4,21 +4,23 @@ import SockJS from 'sockjs-client';
 import { Observable, Subject } from 'rxjs';
 import { ChatMessage } from '../../interFace/chat-message';
 import { ChatFormRealTime } from '../../interFace/ChatFormRealTime';
+import { environment } from '../Config/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
   private stompClient: any;
-
-  constructor() {
+  private url =environment.apiUrl;
+  private apiUrl = this.url + '/chat-socket';
+  constructor( private toastr : ToastrService) {
 
   }
 
   // Khởi tạo kết nối WebSocket
   initConnectionSocket() {
-    const url = 'http://localhost:8080/chat-socket';
-    this.stompClient = Stomp.over(() => new SockJS(url));
+    this.stompClient = Stomp.over(() => new SockJS(this.apiUrl));
   }
 
   // Tham gia vào một room cụ thể

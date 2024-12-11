@@ -1,47 +1,151 @@
-input, button {
-  border-radius: 50px; /* Bo góc 10px cho input và button */
+/* General Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #f7f9fc;
 }
 
-.form-check-input {
-  border-radius: 5px; /* Bo góc cho checkbox */
+/* Form Container */
+.container {
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  padding: 30px;
 }
+
+/* Form Title */
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2d3436;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Input Styles */
+.form-control {
+  border: 1px solid #dfe6e9;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #2d3436;
+  padding: 10px 15px;
+}
+
+.form-control:focus {
+  border-color: #74b9ff;
+  box-shadow: 0 0 5px rgba(116, 185, 255, 0.8);
+  outline: none;
+}
+
+/* Error Message */
+small {
+  color: #d63031;
+  font-size: 14px;
+}
+
+/* Button Styles */
+.btn-primary,
 .custom-login-btn {
-  background-color: rgba(97, 146, 244, 1); /* Màu nền */
-  color: white; /* Màu chữ */
-  width: 50%; /* Độ rộng */
-  border: none; /* Bỏ viền */
+  background: linear-gradient(135deg, #6c5ce7, #0984e3);
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
 }
+
+.btn-primary:hover,
 .custom-login-btn:hover {
-  background-color: #45a049; /* Màu khi hover */
-  cursor: pointer; /* Thay đổi con trỏ khi hover */
+  background: linear-gradient(135deg, #0984e3, #6c5ce7);
+  transform: scale(1.05);
 }
 
+.btn-primary:disabled,
+.custom-login-btn:disabled {
+  background: #dfe6e9;
+  cursor: not-allowed;
+}
 
+/* Link Styles */
+.text-primary {
+  color: #6c5ce7;
+  font-weight: 500;
+  text-decoration: none;
+}
 
+.text-primary:hover {
+  color: #4c44bd;
 
+}
+
+/* Image Styling */
+.col-md-6 img {
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 100%;
+}
+
+/* Modal Overlay for OTP */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Nền mờ 50% */
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 1000;
 }
 
-
-/* Form ở giữa */
 .modal-form {
-  background-color: #fff;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   padding: 20px;
-  width: 300px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
   text-align: center;
 }
+
+.modal-form h5 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #2d3436;
+}
+
+.modal-form .form-control {
+  margin-bottom: 15px;
+}
+
+.modal-form .btn {
+  margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .col-md-6 img {
+    display: none;
+  }
+
+  .container {
+    box-shadow: none;
+    border-radius: 0;
+    background: #f7f9fc;
+    padding: 20px;
+  }
+
+  .background {
+    padding: 20px;
+  }
+}
+
 
 
 small {

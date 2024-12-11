@@ -1,259 +1,43 @@
 <div class="content">
-  <div class="search">
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Find friends...">
+  <div class="right hidden">
+    <div class="input_search">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search for users"
+          [(ngModel)]="searchQuery"
+          (keyup)="onSearch()"
+        />
+      </div>
+    </div>
+    <div class="result_search_user">
+      <ngx-spinner
+        class="icon_search_user"
+        name="search_user"
+        bdColor="transparent"
+        size="medium"
+        color="#2596be"
+        type="ball-clip-rotate-pulse"
+        [fullScreen]="false"
+      ></ngx-spinner>
+      <div *ngIf="listUser && listUser.length > 0" class="list-group mt-3">
+        <div *ngFor="let user of listUser" class="list-group-item" (click)="onUserClick(user)">
+          <div class="profile-container">
+            <div class="profile-image">
+              <img [src]="user.avatar" alt="Profile Picture" />
+            </div>
+            <div class="profile-info">
+              <span class="name">{{ user.username }}</span>
+              <span class="verified">{{ user.fullname }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="listUser.length === 0 && searchQuery.trim() !== ''" class="mt-3 text-center">
+        <strong>Not Found</strong>
+      </div>
+    </div>
   </div>
-  <ul>
-    <li>
-      <div class="inside">
-        <div class="avatar">
-          <img
-            src="assets/images/HomePage/Wukong.jpg"
-            alt="avatar"
-            height="50px"
-            width="50px"
-          />
-        </div>
-        <div class="mid">
-          <div class="name">
-            <div class="name_user">
-              <p style="font-weight: bold">Đặng Hùng</p>
-            </div>
-          </div>
-          <div class="Mess">
-            <img
-              src="assets/images/HomePage/Wukong.jpg"
-              style="
-                width: 16px;
-                height: 16px;
-                border-radius: 50%;
-                margin-right: 10px;
-              "
-              alt="avatar"
-            />
-            <p>Mutual friend</p>
-          </div>
-        </div>
-        <div class="time">
-          <div class="dropdown">
-            <a
-              class="btn btn-outline-secondary dropdown-toggle btn-sm"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="bi bi-check2"></i> Friend
-            </a>
-
-            <ul class="dropdown-menu custom-dropdown">
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="bi bi-trash"></i> Delete friend</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="bi bi-ban"></i> Block</a
-                >
-              </li>
-            </ul>
-          </div>
-          <button type="button" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-chat-dots"></i>
-            Message
-          </button>
-        </div>
-      </div>
-    </li>
-
-    <li>
-      <div class="inside">
-        <div class="avatar">
-          <img
-            src="assets/images/HomePage/Wukong.jpg"
-            alt="avatar"
-            height="50px"
-            width="50px"
-          />
-        </div>
-        <div class="mid">
-          <div class="name">
-            <div class="name_user">
-              <p style="font-weight: bold">Đặng Hùng</p>
-            </div>
-          </div>
-          <div class="Mess">
-            <img
-              src="assets/images/HomePage/Wukong.jpg"
-              style="
-                width: 16px;
-                height: 16px;
-                border-radius: 50%;
-                margin-right: 10px;
-              "
-              alt="avatar"
-            />
-            <p>Mutual friend</p>
-          </div>
-        </div>
-        <div class="time">
-          <div class="dropdown">
-            <a
-              class="btn btn-outline-secondary dropdown-toggle btn-sm"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="bi bi-check2"></i> Friend
-            </a>
-
-            <ul class="dropdown-menu custom-dropdown">
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="bi bi-trash"></i> Delete friend</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="bi bi-ban"></i> Block</a
-                >
-              </li>
-            </ul>
-          </div>
-          <button type="button" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-chat-dots"></i>
-            Message
-          </button>
-        </div>
-      </div>
-    </li>
-
-    <li>
-      <div class="inside">
-        <div class="avatar">
-          <img
-            src="assets/images/HomePage/Wukong.jpg"
-            alt="avatar"
-            height="50px"
-            width="50px"
-          />
-        </div>
-        <div class="mid">
-          <div class="name">
-            <div class="name_user">
-              <p style="font-weight: bold">Đặng Hùng</p>
-            </div>
-          </div>
-          <div class="Mess">
-            <img
-              src="assets/images/HomePage/Wukong.jpg"
-              style="
-                width: 16px;
-                height: 16px;
-                border-radius: 50%;
-                margin-right: 10px;
-              "
-              alt="avatar"
-            />
-            <p>Mutual friend</p>
-          </div>
-        </div>
-        <div class="time">
-          <div class="dropdown">
-            <a
-              class="btn btn-outline-secondary dropdown-toggle btn-sm"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="bi bi-check2"></i> Friend
-            </a>
-
-            <ul class="dropdown-menu custom-dropdown">
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="bi bi-trash"></i> Delete friend</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="bi bi-ban"></i> Block</a
-                >
-              </li>
-            </ul>
-          </div>
-          <button type="button" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-chat-dots"></i>
-            Message
-          </button>
-        </div>
-      </div>
-    </li>
-
-    <li>
-      <div class="inside">
-        <div class="avatar">
-          <img
-            src="assets/images/HomePage/Wukong.jpg"
-            alt="avatar"
-            height="50px"
-            width="50px"
-          />
-        </div>
-        <div class="mid">
-          <div class="name">
-            <div class="name_user">
-              <p style="font-weight: bold">Đặng Hùng</p>
-            </div>
-          </div>
-          <div class="Mess">
-            <img
-              src="assets/images/HomePage/Wukong.jpg"
-              style="
-                width: 16px;
-                height: 16px;
-                border-radius: 50%;
-                margin-right: 10px;
-              "
-              alt="avatar"
-            />
-            <p>Mutual friend</p>
-          </div>
-        </div>
-        <div class="time">
-          <div class="dropdown">
-            <a
-              class="btn btn-outline-secondary dropdown-toggle btn-sm"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="bi bi-check2"></i> Friend
-            </a>
-
-            <ul class="dropdown-menu custom-dropdown">
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="bi bi-trash"></i> Delete friend</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="bi bi-ban"></i> Block</a
-                >
-              </li>
-            </ul>
-          </div>
-          <button type="button" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-chat-dots"></i>
-            Message
-          </button>
-        </div>
-      </div>
-    </li>
-  </ul>
 </div>
 

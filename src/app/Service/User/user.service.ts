@@ -2,6 +2,7 @@ import { ApiResponseBody } from './../../interFace/ApiResponseBody';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { environment } from '../Config/environment';
 
 
 // Model cho User
@@ -17,7 +18,9 @@ interface User {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8080/api/users';
+  private url =environment.apiUrl;
+  private apiUrl = this.url + '/api/users';
+
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +32,13 @@ export class UserService {
   getUserByUsername(username: string): Observable<HttpResponse<any>> {
     return this.http.get<User>(`${this.apiUrl}/username/${username}`,{observe:'response'});
   }
+  // Hàm tìm user theo userId
+  getUserById(userId:number):Observable<any> {
+    return this.http.get(`${this.apiUrl}/${userId}`,{observe:'response'}).pipe(
+      map((response) => response.body)
+    );
+  }
+
   // Hàm tìm user theo ký tự
   searchUser(keyword: string): Observable<ApiResponseBody | null> {
     return this.http

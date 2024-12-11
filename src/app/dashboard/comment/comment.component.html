@@ -1,0 +1,120 @@
+<div class="posts-list">
+
+
+      <div *ngIf="post_showHTML" class="instagram-post" #CommentContainer   >
+        <div class="post-header">
+          <img src="{{ post_showHTML.userAvatar }}" alt="Profile" class="profile-picture" />
+          <div class="user-info">
+            <span class="username">{{ post_showHTML.userName }}</span>
+            <span class="post-time">
+              {{ post_showHTML.createdAt | date : "short" }}
+            </span>
+          </div>
+        </div>
+        <div class="post-image" *ngIf="post_showHTML.images && post_showHTML.images.length > 0; else noImage">
+          <!-- Post Image Carousel -->
+          <div id="carousel-{{ post_showHTML.id }}" class="carousel slide post-image" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div *ngFor="let media of post_showHTML.images; let i = index" class="carousel-item" [class.active]="i === 0">
+                <!-- Kiểm tra nếu media là video -->
+                <ng-container *ngIf="isVideo(media.fileName); else showImage">
+                  <video [src]="media.filePath" class="d-block w-100" controls title="Video {{ i + 1 }}">
+                    ko HIEN THI DC VIDEO
+                  </video>
+                </ng-container>
+                <!-- Nếu là ảnh -->
+                <ng-template #showImage>
+                  <img [src]="media.filePath" class="d-block w-100" alt="Image {{ i + 1 }}" />
+                </ng-template>
+              </div>
+            </div>
+
+            <!-- Dấu chấm dot -->
+            <ol class="carousel-indicators">
+              <li *ngFor="let image of post_showHTML.images; let i = index" [attr.data-bs-target]="'#carousel-' + post_showHTML.id"
+                [attr.data-bs-slide-to]="i" [class.active]="i === 0"></li>
+            </ol>
+
+            <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carousel-' + post_showHTML.id"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carousel-' + post_showHTML.id"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+          <!------>
+        </div>
+
+        <div class="post-interactions">
+          <div class="interactions">
+            <div class="likes">
+              <div class="button-like" (click)="Like(post_showHTML.id)">
+                <i *ngIf="!post_showHTML.liked" class="bi bi-heart icon" [ngClass]="{ 'fade-in': !post_showHTML.liked }"></i>
+              </div>
+
+              <div class="button-unlike" (click)="UnLike(post_showHTML.id)">
+                <i *ngIf="post_showHTML.liked" class="bi bi-heart-fill icon" style="color: red"
+                  [ngClass]="{ 'fade-in': post_showHTML.liked }"></i>
+              </div>
+            </div>
+
+            <div class="comment" (click)="scrollToBottom()">
+              <i class="bi bi-chat-left icon"></i>
+            </div>
+            <div class="share"><i class="bi bi-send icon"></i></div>
+          </div>
+          <div class="caption" *ngIf="post_showHTML.images && post_showHTML.images.length > 0">
+            <span><strong>{{ post_showHTML.userName }}</strong> {{ post_showHTML.content }}</span>
+          </div>
+          <div class="total-like">
+            <span>{{ post_showHTML.totalLike }} lượt thích</span>
+          </div>
+          <ng-template #noImage>
+            <div class="caption" style="padding-left: 10px">
+              <span>{{ post_showHTML.content }}</span>
+            </div>
+          </ng-template>
+          <div (click)="scrollToBottom()" class="comments" style="cursor: pointer">
+            <span>{{ post_showHTML.totalComment }} bình luận</span>
+          </div>
+
+            <!-- showComment -->
+            <div class="comments-container">
+              <!-- Danh sách bình luận -->
+              <div class="comment-item" *ngFor="let comment of post_showHTML.comments">
+                <div class="comment-avatar">
+                  <img [src]="comment.userAvatar" alt="Avatar" />
+                </div>
+                <div class="comment-content">
+                  <div class="comment-header">
+                    <span class="username">{{ comment.userName }}</span>
+                    <!-- <span class="comment-time">{{ comment.createdAt | date : 'short' }}</span> -->
+                  </div>
+                  <p class="comment-text">{{ comment.content }}</p>
+                </div>
+              </div>
+
+              <!-- Ô nhập và gửi bình luận -->
+              <div class="comment-input-container">
+                <input
+                  type="text"
+                  [(ngModel)]="newComment"
+                  placeholder="Write a comment..."
+                  class="comment-input"
+                  #commentInput
+                />
+                <button (click)="addComment(post_showHTML.id,null)" class="send-btn">Send</button>
+              </div>
+            </div>
+
+        </div>
+
+
+
+      </div>
+
+
+</div>
+

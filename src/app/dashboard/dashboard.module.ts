@@ -10,6 +10,7 @@ import { FriendComponent } from './friend/friend.component';
 import { CreatPostComponent } from './creat-post/creat-post.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CallOnInitDirective } from './directives/call-on-init.directive';
+import { CommentComponent } from './comment/comment.component';
 
 
 
@@ -22,6 +23,7 @@ import { CallOnInitDirective } from './directives/call-on-init.directive';
     FriendComponent,
     CreatPostComponent,
     CallOnInitDirective,
+    CommentComponent,
 
 
 

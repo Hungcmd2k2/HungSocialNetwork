@@ -9,19 +9,23 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserOtherComponent } from './user-other/user-other/user-other.component';
 import { ChecklikeDirective } from './directives_Profile/checklike.directive';
+import { EditPostComponent } from './edit-post/edit-post.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [
     MyselfComponent,
     EditComponent,
     ProfileComponent,
     UserOtherComponent,
-    ChecklikeDirective
+    ChecklikeDirective,
+    EditPostComponent
   ],
   imports: [
     CommonModule,
     ProfileRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ]
 })
 export class ProfileModule { }

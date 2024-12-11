@@ -7,101 +7,107 @@ import { AuthService } from '../Service/Authentication/auth.service';
 import { HttpResponse } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 import { ApiResponseBody } from '../interFace/ApiResponseBody';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrl: './login-page.component.css'
+  styleUrl: './login-page.component.css',
 })
 export class LoginPageComponent implements OnInit {
   //nút ẩn hiện password
   showPassword: boolean = false;
   togglePasswordVisibility() {
-  this.showPassword = !this.showPassword;
+    this.showPassword = !this.showPassword;
   }
 
   images: string[] = [
     'assets/images/LoginPage/Registration.jpg',
     'assets/images/LoginPage/LoginPage.jpg',
-    'assets/images/LoginPage/LoginPage_2.jpg',
+
   ];
 
   // Biến lưu trữ đường dẫn hình ảnh ngẫu nhiên
   randomImage: string | undefined;
 
-  loginForm:FormGroup;
-  constructor(private routes : Router,private userService: UserService,private authService:AuthService,){
-    this.loginForm = new FormGroup(
-      {
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', Validators.required)
-      }
-    );
+  loginForm: FormGroup;
+  constructor(
+    private routes: Router,
+    private userService: UserService,
+    private authService: AuthService,
+    private spinner: NgxSpinnerService
+  ) {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', Validators.required),
+    });
   }
 
   ngOnInit(): void {
     this.setRandomImage();
   }
 
-  apiResponseBody:  ApiResponseBody | null = null;
-  apiResponse : HttpResponse<any> |null =null;
-  loginResponse: {userid:number; email: string; token: string } | null = null;
+  apiResponseBody: ApiResponseBody | null = null;
+  apiResponse: HttpResponse<any> | null = null;
+  loginResponse: { userid: number; email: string; token: string } | null = null;
   onLogin() {
     if (this.loginForm.valid) {
       const email = this.loginForm.value.email;
       //Check tài khoản tồn tại không
-      this.checkEmail(email).subscribe(check_email => {
-      //Check mật khẩu
-        if(check_email==true){
-          this.checkLogin(this.loginForm.value).subscribe(check_password =>{
-            if(check_password==true){
-              this.routes.navigate(['/Dashboard']);
-            }
-            else{
+      this.checkEmail(email).subscribe((check_email) => {
+        //Check mật khẩu
+        if (check_email == true) {
+          this.checkLogin(this.loginForm.value).subscribe((check_password) => {
+            if (check_password == true) {
+              this.spinner.show('load');
+
+              setTimeout(() => {
+                this.routes.navigate(['/Dashboard']);
+                this.spinner.hide('load');
+              }, 2000);
+            } else {
               Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Password is not correct!",
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Password is not correct!',
               });
             }
-          })
-        }
-        else{
+          });
+        } else {
           Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Email is not registered",
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Email is not registered',
           });
         }
       });
     }
   }
 
-      checkEmail(email: string): Observable<boolean> {
-        return this.userService.getUserByEmail(email).pipe(
-          map(response => {
-            this.apiResponseBody = response.body;
-            return this.apiResponseBody?.code === 200; // Trả về true nếu code là 200
-          })
-        );
-      }
-      checkLogin(form :any):Observable<boolean>{
-        return this.authService.callApiLogin(form).pipe(
-          map(response =>{
-            this.apiResponseBody = response.body;
-            this.loginResponse = this.apiResponseBody?.data;
-            if(this.loginResponse){
-              const user= JSON.stringify(this.loginResponse);
-              sessionStorage.setItem('session_user',user);
-            }
-            return this.apiResponseBody?.code === 200;
-          })
-        );
-      }
+  checkEmail(email: string): Observable<boolean> {
+    return this.userService.getUserByEmail(email).pipe(
+      map((response) => {
+        this.apiResponseBody = response.body;
+        return this.apiResponseBody?.code === 200; // Trả về true nếu code là 200
+      })
+    );
+  }
+  checkLogin(form: any): Observable<boolean> {
+    return this.authService.callApiLogin(form).pipe(
+      map((response) => {
+        this.apiResponseBody = response.body;
+        this.loginResponse = this.apiResponseBody?.data;
+        if (this.loginResponse) {
+          const user = JSON.stringify(this.loginResponse);
+          sessionStorage.setItem('session_user', user);
+        }
+        return this.apiResponseBody?.code === 200;
+      })
+    );
+  }
   // Chọn ngẫu nhiên một hình ảnh
   setRandomImage(): void {
     const randomIndex = Math.floor(Math.random() * this.images.length);
     this.randomImage = this.images[randomIndex];
   }
-
 }

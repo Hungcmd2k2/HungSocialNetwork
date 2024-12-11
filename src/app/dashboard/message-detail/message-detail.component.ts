@@ -157,6 +157,7 @@ export class MessageDetailComponent implements AfterViewInit, OnInit {
       this.ROOM_ID=this.apiResponseBody.data;
       console.log("TAO ROOM MOI THANH CONG");
       console.log("Room_ID:"+this.ROOM_ID);
+      window.location.reload();
     }
     else{
       console.log("TAO ROOM KO THANH CONG");

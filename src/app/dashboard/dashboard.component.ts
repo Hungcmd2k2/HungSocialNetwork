@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   debounceTime,
@@ -14,6 +14,7 @@ import { ApiResponseBody } from '../interFace/ApiResponseBody';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { WebSocketService } from '../Service/Websocket/websocket.service';
+import { NotificationsService } from '../Service/Notifications/notifications.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,86 +23,34 @@ import { WebSocketService } from '../Service/Websocket/websocket.service';
 })
 export class DashboardComponent implements OnInit {
   public userObject: any = null;
-  searchQuery: string = ''; // Biến chứa từ khóa tìm kiếm
-  private searchSubject: Subject<string> = new Subject<string>();
-  listUser: {
-    userid: number;
-    username: string;
-    fullname: string;
-    avatar: string;
-  }[] = [];
+
   constructor(
     private routes: Router,
-    private userService: UserService,
-    private spinner: NgxSpinnerService,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    private notifi: NotificationsService
+  ) {
+
+  }
+  menus = [
+    { link: '/Dashboard/Home', title: 'Home', label: 'Home', icon: 'bi bi-house' },
+    { link: '/Dashboard/Creat-Post', title: 'New post', label: 'Post', icon: 'bi bi-patch-plus' },
+    { link: '/Dashboard/Message', title: 'Message', label: 'Message', icon: 'bi bi-chat' },
+    { link: '/Dashboard/Notification', title: 'Notification', label: 'Notification', icon: 'bi bi-bell' },
+    { link: '/Dashboard/Profile', title: 'Profile', label: 'Profile', icon: 'bi bi-person' },
+    { link: '/Dashboard/Search', title: 'Search', label: 'Search', icon: 'bi bi-search' },
+    { link: '/Dashboard/Setting', title: 'Setting', label: 'Setting', icon: 'bi bi-gear' },
+  ];
+
   reloadCurrentPage() {
     window.location.reload();
   }
 
-  onUserClick(user: any): void {
-    const id = user.userid;
-    const id_session = this.userObject.userid;
-    if (id === id_session) {
-      this.routes.navigate([`/Dashboard/Profile/Myself`]);
-    } else {
-      this.routes.navigate([`/Dashboard/Profile/user-other/${user.username}`]);
-    }
-  }
 
   ngOnInit(): void {
     this.Who();
-    this.callApiSearch();
-  }
-  callApiSearch() {
-    this.listUser = [];
-    // Lắng nghe các từ khóa từ Subject và gọi API sau debounceTime
-    this.searchSubject
-      .pipe(
-        debounceTime(300) // Chờ 300ms sau khi ngừng gõ
-      )
-      .subscribe((keyword) => {
-        // Nếu từ khóa trống, không gọi API, và làm trống danh sách
-        if (keyword.trim() === '') {
-          this.listUser = [];
-        } else {
-          this.spinner.show('search_user');
-          setTimeout(() => {
-            this.userService.searchUser(keyword).subscribe({
-              next: (result) => {
-                this.spinner.hide('search_user');
-                if (result && result.data && result.data.length > 0) {
-                  this.listUser = result.data.map((user: any) => ({
-                    userid: user.userid,
-                    username: user.username,
-                    fullname: user.fullname,
-                    avatar: user.avatar,
-                  }));
-                } else {
-                  this.listUser = []; // Gán mảng rỗng nếu không có kết quả
-                }
-              },
-              error: (err) => {
-                // this.loading = false;
-                console.error('Error fetching search results:', err);
-                this.listUser = []; // Gán mảng rỗng khi có lỗi
-              },
-            });
-          }, 1000);
-        }
-      });
+    this.notifi.initConnectionSocket(this.userObject.username);
   }
 
-  onSearch(): void {
-    const keyword = this.searchQuery.trim(); // Lấy giá trị từ ô nhập liệu và loại bỏ khoảng trắng thừa
-    if (keyword === '') {
-      // Chỉ khi từ khóa thực sự trống mới làm trống listUser
-      this.listUser = [];
-      return;
-    }
-    this.searchSubject.next(keyword); // Đẩy từ khóa vào Subject nếu không trống
-  }
 
   title: string = 'Home';
   setTitle(newTitle: string) {
@@ -128,7 +77,6 @@ export class DashboardComponent implements OnInit {
   Who() {
     const user = sessionStorage.getItem('session_user');
     if (user) {
-      // Chuyển chuỗi JSON thành object
       this.userObject = JSON.parse(user);
     } else {
       this.toastr.warning('You are not logged in yet', 'Notification', {
@@ -145,4 +93,6 @@ export class DashboardComponent implements OnInit {
       progressBar: true,
     });
   }
+  ///Response
+
 }

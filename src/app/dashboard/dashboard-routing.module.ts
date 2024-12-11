@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard.component';
 import { NotificationComponent } from './notification/notification.component';
 import { CreatPostComponent } from './creat-post/creat-post.component';
 import { SettingComponent } from '../setting/setting.component';
+import { CommentComponent } from './comment/comment.component';
 
 
 
@@ -19,6 +20,9 @@ const routes: Routes = [
         component:HomeComponent
       },
       {
+        path:'Comment/:postId',component:CommentComponent
+      },
+      {
         path: 'Message',
         loadChildren:()=>import('./message/message.module').then(m=>m.MessageModule)
       },
@@ -30,7 +34,7 @@ const routes: Routes = [
         path:'Creat-Post',
         component:CreatPostComponent
       },
-      {path: 'Friend',loadChildren: () => import('./friend/friend.module').then(m => m.FriendModule) },
+      {path: 'Search',loadChildren: () => import('./friend/friend.module').then(m => m.FriendModule) },
       {path:'Profile',loadChildren:()=>import('./profile/profile.module').then(m=>m.ProfileModule)},
       { path: '', redirectTo: 'Home', pathMatch: 'full' },
       {path:'Setting',component:SettingComponent}

@@ -16,13 +16,11 @@ import { CommentRequest } from '../../interFace/CommentRequest';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
-
 export class HomeComponent implements OnInit {
   // Khai báo thuộc tính carousel với @ViewChild
   @ViewChild('commentsContainer') commentsContainer!: ElementRef;
-
 
   userObject: any = null;
   apiResponseBody: ApiResponseBody | null = null;
@@ -33,7 +31,14 @@ export class HomeComponent implements OnInit {
 
   commentResquest: CommentRequest | null = null;
   newComment: string = '';
-  constructor(private toastr: ToastrService, private postService: PostService, private followService: FollowService, private router: Router, private likeService: LikeService, private commentService: CommentService) { };
+  constructor(
+    private toastr: ToastrService,
+    private postService: PostService,
+    private followService: FollowService,
+    private route: Router,
+    private likeService: LikeService,
+    private commentService: CommentService
+  ) {}
   ngOnInit(): void {
     this.Who();
   }
@@ -52,17 +57,20 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
   GetList_Following(followerId: number) {
-    this.followService.List_Following(followerId).subscribe(response => {
+    this.followService.List_Following(followerId).subscribe((response) => {
       this.apiResponseBody = response;
       this.List_Following = this.apiResponseBody?.data;
       this.Show_Post_By_UserIDs();
-    })
+    });
   }
 
   Show_Post_By_UserIDs() {
-    if (!this.List_Following || !Array.isArray(this.List_Following) || this.List_Following.length === 0) {
+    if (
+      !this.List_Following ||
+      !Array.isArray(this.List_Following) ||
+      this.List_Following.length === 0
+    ) {
       this.toastr.info('Follow others to see posts', 'Notification', {
         closeButton: true,
         progressBar: true,
@@ -75,38 +83,38 @@ export class HomeComponent implements OnInit {
 
     from(this.List_Following) // Chuyển mảng userId thành Observable
       .pipe(
-        concatMap(userId =>
+        concatMap((userId) =>
           this.postService.getAllPostByUserId(userId).pipe(
-            map(response => {
+            map((response) => {
               const userPosts: PostForHome[] = response?.data || [];
               // Thêm thuộc tính liked mặc định là false(liked: false,totalLike:0,comments:[]})
-              return userPosts.map(post => ({ ...post, }));
+              return userPosts.map((post) => ({ ...post }));
             })
           )
         ),
         toArray() // Chuyển tất cả kết quả thành một mảng duy nhất
       )
       .subscribe({
-        next: results => {
+        next: (results) => {
           // Hợp nhất tất cả các bài viết
-          results.forEach(userPosts => {
+          results.forEach((userPosts) => {
             posts.push(...userPosts);
           });
 
           // Sắp xếp bài viết theo thời gian (mới nhất trước)
           this.post_showHTML = posts.sort((a, b) => {
-            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+            return (
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            );
           });
 
           // console.log(this.post_showHTML);
         },
-        error: err => {
+        error: (err) => {
           console.error('Error fetching posts:', err);
-        }
+        },
       });
   }
-
-
 
   isVideo(media: string): boolean {
     const videoExtensions = ['mp4', 'webm', 'ogg'];
@@ -121,9 +129,9 @@ export class HomeComponent implements OnInit {
   CheckLikeAndComment(postId: number): void {
     const likeRequest = { userId: this.userObject.userid, postId: postId };
 
-    this.likeService.isLike(likeRequest).subscribe(response => {
+    this.likeService.isLike(likeRequest).subscribe((response) => {
       this.apiResponseBody = response;
-      const post = this.post_showHTML.find(p => p.id === postId);
+      const post = this.post_showHTML.find((p) => p.id === postId);
       if (this.apiResponseBody?.code === 200) {
         if (post) post.liked = true;
       } else {
@@ -131,33 +139,33 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    this.likeService.totalLike(postId).subscribe(response => {
+    this.likeService.totalLike(postId).subscribe((response) => {
       this.apiResponseBody = response;
-      const post = this.post_showHTML.find(p => p.id === postId);
+      const post = this.post_showHTML.find((p) => p.id === postId);
       if (this.apiResponseBody?.code === 200) {
         const total = this.apiResponseBody.data;
         if (post) post.totalLike = total;
       } else {
         console.log('có lỗi gì đó ở đoạn lấy số lượng like' + postId);
       }
-    })
+    });
 
-    this.commentService.totalComment(postId).subscribe(response => {
+    this.commentService.totalComment(postId).subscribe((response) => {
       this.apiResponseBody = response;
-      const post = this.post_showHTML.find(p => p.id === postId);
+      const post = this.post_showHTML.find((p) => p.id === postId);
       if (this.apiResponseBody?.code === 200) {
         const total = this.apiResponseBody.data;
         if (post) post.totalComment = total;
       } else {
         console.log('có lỗi gì đó ở đoạn lấy số lượng comment' + postId);
       }
-    })
+    });
   }
 
   Like(postId: number) {
-    const post = this.post_showHTML.find(p => p.id === postId);
+    const post = this.post_showHTML.find((p) => p.id === postId);
     const likeRequest = { userId: this.userObject.userid, postId: postId };
-    this.likeService.Like(likeRequest).subscribe(response => {
+    this.likeService.Like(likeRequest).subscribe((response) => {
       this.apiResponseBody = response;
       if (this.apiResponseBody?.code === 200) {
         if (post) {
@@ -167,86 +175,27 @@ export class HomeComponent implements OnInit {
       } else {
         console.log('Bài viết này chưa dc like: id:' + postId);
       }
-    })
+    });
   }
 
   UnLike(postId: number) {
-    const post = this.post_showHTML.find(p => p.id === postId);
+    const post = this.post_showHTML.find((p) => p.id === postId);
     const likeRequest = { userId: this.userObject.userid, postId: postId };
-    this.likeService.UnLike(likeRequest).subscribe(response => {
+    this.likeService.UnLike(likeRequest).subscribe((response) => {
       this.apiResponseBody = response;
       if (this.apiResponseBody?.code === 200) {
-
         if (post) {
           post.liked = !post.liked;
           post.totalLike -= 1;
         }
-
       } else {
         console.log('Bài viết này chưa dc like: id:' + postId);
       }
-    })
+    });
   }
 
   /////////cooment
-  showComment(post: any): void {
-    this.selectedPost = post; // Lưu bài đăng đã chọn
-    this.getAllComment(post.id);
-
-
-
+  showComment(postId: number): void {
+    this.route.navigate([`Dashboard/Comment/${postId}`]);
   }
-  togglePostDetails(): void {
-    this.detail = false;
-    this.selectedPost = null;
-    window.location.reload();
-
-  }
-  //add comment
-  addComment(postIdRq: number, parentIdRq: any) {
-    if (this.newComment.trim()) {
-      const userIdRq = this.userObject.userid;
-      this.commentResquest = { userId: userIdRq, postId: postIdRq, content: this.newComment, parentId: parentIdRq }
-      console.log(this.commentResquest);
-      this.commentService.AddComment(this.commentResquest).subscribe(response => {
-        this.apiResponseBody = response;
-        if (this.apiResponseBody?.code === 200) {
-          this.getAllComment(postIdRq);
-          this.scrollToBottom(); // Cuộn xuống cuối cùng
-        }
-
-      })
-    }
-    else{
-      this.toastr.info('Conntent not null', 'Notification', {
-        closeButton: true,
-        progressBar: true,
-        positionClass: 'toast-top-right',
-      });
-    }
-  }
-  //Get all comment by postId;
-
-  getAllComment(postId: number) {
-    this.commentService.GetAllComment(postId).subscribe(response => {
-      this.apiResponseBody = response;
-      const dataComment = this.apiResponseBody?.data;
-      const post = this.post_showHTML.find(p => p.id === postId);
-      if (post) {
-        post.comments = dataComment;
-      }
-      this.detail = true;
-
-    })
-
-  }
-  //cuộn cmt
-  scrollToBottom() {
-    try {
-      this.commentsContainer.nativeElement.scrollTop = this.commentsContainer.nativeElement.scrollHeight;
-    } catch (err) {
-      console.error('Scroll error:', err);
-    }
-  }
-
 }

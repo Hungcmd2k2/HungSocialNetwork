@@ -122,6 +122,7 @@ cursor: pointer;
       margin-left: 10px;
       margin-right: 10px;
       box-sizing: border-box;
+      padding-bottom: 100px;
 
     }
 
@@ -147,6 +148,31 @@ cursor: pointer;
       align-items: center;
       padding: 10px;
     }
+    .edit{
+      margin-left: auto;
+    }
+    .edit i{
+      font-size: 24px;
+      color: black;
+    }
+    .edit .icon{
+      font-size: 16px;
+    }
+    .dropdown-toggle {
+      background: none; /* Loại bỏ nền */
+      border: none; /* Loại bỏ đường viền */
+      padding: 0; /* Loại bỏ khoảng cách xung quanh biểu tượng */
+      display: inline-flex; /* Đảm bảo biểu tượng nằm gọn trong không gian nhỏ */
+      align-items: center; /* Căn giữa biểu tượng theo chiều dọc */
+      justify-content: center;
+    }
+    .dropdown-toggle:focus,
+    .dropdown-toggle:hover {
+      background: none; /* Không thay đổi khi hover hoặc focus */
+      box-shadow: none; /* Loại bỏ hiệu ứng focus */
+    }
+
+
 
     .profile-picture {
       width: 50px;

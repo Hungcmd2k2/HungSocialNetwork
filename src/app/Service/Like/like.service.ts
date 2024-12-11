@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { environment } from '../Config/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LikeService {
-  private apiUrl = 'http://localhost:8080/api/like';
+  private url =environment.apiUrl;
+  private apiUrl = this.url + '/api/like';
+
 
   constructor(private http: HttpClient) { }
 

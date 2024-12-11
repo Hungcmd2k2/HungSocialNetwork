@@ -70,6 +70,19 @@
               {{ post.createdAt | date : "short" }}
             </span>
           </div>
+
+          <div class="edit">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li><button (click)="deletePost(post.id)"  class="dropdown-item" type="button">Delete <i class="bi bi-trash icon"></i></button></li>
+                <li><button (click)="editPost(post.id)" class="dropdown-item" type="button">Edit <i class="bi bi-pencil-square icon"></i></button></li>
+              </ul>
+            </div>
+
+          </div>
         </div>
         <div class="post-image" *ngIf="post.images && post.images.length > 0; else noImage">
           <!-- Post Image Carousel -->
@@ -78,7 +91,7 @@
               <div *ngFor="let media of post.images; let i = index" class="carousel-item" [class.active]="i === 0">
                 <!-- Kiểm tra nếu media là video -->
                 <ng-container *ngIf="isVideo(media); else showImage">
-                  <video [src]="media" class="d-block w-100" controls title="Video {{ i + 1 }}">ko HIEN THI DC
+                  <video [src]="media" class="d-block w-100" controls title="Video {{ i + 1 }}">KO HIEN THI DC
                     VIDEO</video>
                 </ng-container>
                 <!-- Nếu là ảnh -->
@@ -120,7 +133,7 @@
 
             </div>
 
-            <div class="comment" (click)="showComment(post)"><i class="bi bi-chat-left icon"></i></div>
+            <div class="comment" (click)="showComment(post.id)"><i class="bi bi-chat-left icon"></i></div>
             <div class="share"><i class="bi bi-send icon"></i></div>
           </div>
           <div class="caption" *ngIf="post.images && post.images.length > 0">
@@ -132,8 +145,8 @@
               <span>{{ post.content }}</span>
             </div>
           </ng-template>
-          <div (click)="showComment(post)" class="comments" style="cursor: pointer;">
-            <span>Xem tất cả {{post.totalComment}} bình luận</span>
+          <div (click)="showComment(post.id)" class="comments" style="cursor: pointer;">
+            <span>{{post.totalComment}} bình luận</span>
           </div>
 
         </div>
@@ -143,81 +156,6 @@
   </ul>
 </div>
 
-<div *ngIf="detail" class="post-details-overlay-in">
-  <div class="post-details-content-in">
-    <div class="left-in">
-      <!-- Image -->
-      <div class="post-image-in">
-        <div class="post-image" *ngIf="selectedPost.images && selectedPost.images.length > 0; else showContent">
-          <!-- Post Image Carousel -->
-          <div id="carousel-selected" class="carousel slide post-image" data-bs-ride="false">
-            <div class="carousel-inner">
-              <div *ngFor="let media of selectedPost.images; let i = index" class="carousel-item" [class.active]="i === 0">
-                <ng-container *ngIf="isVideo(media); else showImage">
-                  <video [src]="media" class="d-block w-100" controls title="Video {{ i + 1 }}"></video>
-                </ng-container>
-                <ng-template #showImage>
-                  <img [src]="media" class="d-block w-100" alt="Image {{ i + 1 }}" />
-                </ng-template>
-              </div>
-            </div>
-
-            <!-- Dấu chấm dot -->
-            <ol class="carousel-indicators">
-              <li *ngFor="let image of selectedPost.images; let i = index" [attr.data-bs-target]="'#carousel-selected'"
-                [attr.data-bs-slide-to]="i" [class.active]="i === 0"></li>
-            </ol>
-
-            <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carousel-selected'"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            </button>
-            <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carousel-selected'"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            </button>
-          </div>
 
 
-        </div>
-
-        <ng-template #showContent>
-            <div class="content-post-in">
-              <span>{{selectedPost.content}}</span>
-            </div>
-        </ng-template>
-
-      </div>
-    </div>
-    <div class="right-in">
-      <div class="header-in">
-        <img [src]="selectedPost.userAvatar" alt="User Avatar" class="user-avatar-in"/>
-        <div class="user-info-in">
-          <span class="username-in">{{ selectedPost.userName }}</span>
-          <span class="post-time-in">{{ selectedPost.createdAt | date: 'short' }}</span>
-        </div>
-        <button class="close-btn-in" (click)="togglePostDetails()"><i class="bi bi-x-circle"></i></button>
-      </div>
-
-      <div class="comments-in" #commentsContainer>
-        <div class="caption-in">
-          <img [src]="selectedPost.userAvatar" alt="User Avatar" class="user-avatar-in" />
-          <span class="username-in">{{ selectedPost.userName }}:</span>
-          <span class="content-user-in">{{ selectedPost.content }}</span>
-        </div>
-        <div class="getComment-in" *ngFor="let comment of selectedPost.comments">
-          <img [src]="comment.userAvatar" alt="User Avatar" class="user-avatar-in" />
-          <span class="comment-user"><strong>{{ comment.userName }}:</strong></span>
-          <span class="comment-text">{{ comment.content}}</span>
-        </div>
-      </div>
-
-      <div class="coment-input-arena">
-        <input type="text" [(ngModel)]="newComment" placeholder="Comment..." class="form-control" />
-        <button (click)="addComment(selectedPost.id,null)" class="btn-send-in">Đăng</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
+<!----Post edittttt-->

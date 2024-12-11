@@ -4,6 +4,7 @@ import { ProfileComponent } from './profile.component';
 import { MyselfComponent } from './myself/myself.component';
 import { EditComponent } from './edit/edit.component';
 import { UserOtherComponent } from './user-other/user-other/user-other.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 const routes: Routes = [
   {path:'',
@@ -20,6 +21,9 @@ const routes: Routes = [
       },
       {
         path:'',redirectTo:'Myself',pathMatch:'full'
+      },
+      {
+        path:'edit-post/:postId',component:EditPostComponent
       }
     ]
   }

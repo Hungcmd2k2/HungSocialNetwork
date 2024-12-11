@@ -8,6 +8,9 @@ import { map, Observable } from 'rxjs';
 import { ApiResponseBody } from '../interFace/ApiResponseBody';
 import { HttpResponse } from '@angular/common/http';
 import { noWhitespaceOrDiacritics } from '../Validator/username-check';
+import { OtpService } from '../Service/Otp/otp.service';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-registration-page',
@@ -18,21 +21,20 @@ export class RegistrationPageComponent implements OnInit {
   images: string[] = [
     'assets/images/LoginPage/Registration.jpg',
     'assets/images/LoginPage/LoginPage.jpg',
-    'assets/images/LoginPage/LoginPage_2.jpg',
   ];
-  // Biến lưu trữ đường dẫn hình ảnh ngẫu nhiên
   randomImage: string | undefined;
   //Form Registration
   registrationForm: FormGroup;
   user: any = null;
 
-  //Form OTP
   isFormOpen: boolean = false;
-  countdown: number = 10; // Thời gian đếm ngược bắt đầu từ 10 giây
-  isLinkDisabled: boolean = true; // Trạng thái của liên kết (vô hiệu hóa ban đầu)
-  private interval: any; // Biến để lưu ID của setInterval
+  otp:string ='';
+  usingOTP : boolean =false;
+  countdown: number = 20;
+  isLinkDisabled: boolean = true;
+  private interval: any;
 
-  constructor(private routes: Router, private userService: UserService) {
+  constructor(private routes: Router, private userService: UserService,private otpService : OtpService,private toastr: ToastrService,private spinner: NgxSpinnerService) {
     this.registrationForm = new FormGroup(
       {
         email: new FormControl('', [Validators.required, Validators.email]),
@@ -79,26 +81,13 @@ export class RegistrationPageComponent implements OnInit {
                 text: 'Username existed!',
               });
             } else {
-              const formData = {
-                email: this.registrationForm.value.email,
-                username: this.registrationForm.value.username,
-                password: this.registrationForm.value.password,
-              };
-              this.checkRegist(formData).subscribe((check_regist) => {
-                if (check_regist == true) {
-                  Swal.fire({
-                    icon: 'success',
-                    title: 'Successful',
-                    text: 'Account created successfully',
-                  });
-                } else {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Opp..',
-                    text: 'Have error during process registration',
-                  });
-                }
-              });
+              if(this.usingOTP ===true){
+                this.OTP();
+              }
+              else{
+                this.NO_OTP();
+              }
+
             }
           });
         }
@@ -132,6 +121,83 @@ export class RegistrationPageComponent implements OnInit {
     );
   }
 
+  requestOtp(email :string):Observable<boolean>{
+    const req ={
+      "email":email
+    }
+    return  this.otpService.requestOtp(req).pipe(
+      map((res)=>{
+        this.apiResponseBody = res;
+        return this.apiResponseBody?.code === 200;
+      })
+    );
+  }
+
+  verifyOtp(email :string,otp:string){
+    const req ={
+      "email":email,
+      "otp":otp
+    }
+    return  this.otpService.verifyOtp(req).pipe(
+      map((res)=>{
+        this.apiResponseBody = res;
+        return this.apiResponseBody?.code === 200;
+      })
+    );
+  }
+
+
+  //Đăng ký có OTP
+  OTP(){
+    this.spinner.show("load");
+    this.requestOtp(this.registrationForm.value.email).subscribe((reqOtp)=>{
+      const email =this.registrationForm.value.email;
+         if(reqOtp==true){
+          this.spinner.hide("load");
+          this.toastr.success(`Otp sent to ${email}`, 'Notification', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+          });
+          this.openForm();
+         }else{
+          this.toastr.error('There was an error sending otp', 'Notification', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+          });
+         }
+
+    });
+
+  }
+  //Đăng ký ko dùng OTP
+  NO_OTP(){
+    const formData = {
+      email: this.registrationForm.value.email,
+      username: this.registrationForm.value.username,
+      password: this.registrationForm.value.password,
+    };
+    this.checkRegist(formData).subscribe((check_regist) => {
+      if (check_regist == true) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Successful',
+          text: 'Account created successfully',
+        });
+
+        setTimeout(()=>{
+           this.isFormOpen=false;
+        },2000)
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Opp..',
+          text: 'Have error during process registration',
+        });
+      }
+    });
+  }
   // Chọn ngẫu nhiên một hình ảnh
   setRandomImage(): void {
     const randomIndex = Math.floor(Math.random() * this.images.length);
@@ -145,16 +211,48 @@ export class RegistrationPageComponent implements OnInit {
   }
 
   // Hàm đóng form
-  closeForm() {
-    this.isFormOpen = false;
-    alert('Tạo tài khoản thành công?');
-    window.location.reload();
+  RegistrationForm() {
+   this.verifyOtp(this.registrationForm.value.email,this.otp).subscribe(otp =>{
+    if(otp===true){
+      const formData = {
+        email: this.registrationForm.value.email,
+        username: this.registrationForm.value.username,
+        password: this.registrationForm.value.password,
+      };
+      this.checkRegist(formData).subscribe((check_regist) => {
+        if (check_regist == true) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Successful',
+            text: 'Account created successfully',
+          });
+
+          setTimeout(()=>{
+             this.isFormOpen=false;
+          },2000)
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Opp..',
+            text: 'Have error during process registration',
+          });
+        }
+      });
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Opp..',
+        text: 'Otp not correct',
+      });
+    }
+   })
   }
 
   // Hàm bắt đầu đếm ngược
   startCountdown() {
     // Đặt lại bộ đếm ngược về 10 giây mỗi lần gọi
-    this.countdown = 10;
+    this.countdown = 20;
     this.isLinkDisabled = true; // Vô hiệu hóa liên kết khi bắt đầu đếm ngược
 
     // Nếu có interval cũ, xóa bỏ nó
@@ -175,8 +273,26 @@ export class RegistrationPageComponent implements OnInit {
 
   // Hàm xử lý sự kiện nhấn vào liên kết (Resend OTP)
   resendOTP() {
-    alert('Ấn gửi lại otp thành công!');
-    // Thực hiện gửi lại OTP ở đây
+    this.spinner.show("load_otp");
+    this.requestOtp(this.registrationForm.value.email).subscribe((reqOtp)=>{
+      this.spinner.hide("load_otp");
+      const email =this.registrationForm.value.email;
+         if(reqOtp==true){
+          this.spinner.hide("load");
+          this.toastr.success(`Otp sent to ${email}`, 'Notification', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+          });
+         }else{
+          this.toastr.error('There was an error sending otp', 'Notification', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+          });
+         }
+
+    });
     this.startCountdown();
   }
 }

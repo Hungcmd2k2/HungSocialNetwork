@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { environment } from '../Config/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommentService {
-  private apiUrl = 'http://localhost:8080/api';
+
+  private url =environment.apiUrl;
+  private apiUrl = this.url + '/api';
+
 
   constructor(private http: HttpClient) {}
 

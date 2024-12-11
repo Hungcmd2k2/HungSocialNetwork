@@ -12,6 +12,8 @@ import { PostService } from '../../../Service/Post/post.service';
 import { LikeService } from '../../../Service/Like/like.service';
 import { CommentService } from '../../../Service/Comment/comment.service';
 import { CommentRequest } from '../../../interFace/CommentRequest';
+import Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-myself',
@@ -31,9 +33,10 @@ export class MyselfComponent {
 
 
   @ViewChild('commentsContainer') commentsContainer!: ElementRef;
-  constructor(private commentService:CommentService,private likeService:LikeService,private route: Router,private userService : UserService,private postService:PostService,private toastr: ToastrService) {}
+  constructor( private spinner: NgxSpinnerService, private commentService:CommentService,private likeService:LikeService,private route: Router,private userService : UserService,private postService:PostService,private toastr: ToastrService) {}
 //Thay avatar
  // Xử lý sự kiện chọn file
+
  post = {
   files: [] as File[],
 };
@@ -47,7 +50,7 @@ onFileSelected_Cover_Photo(event :Event):void{
   }
   setTimeout(()=>{
     window.location.reload();
-  },3000)
+  },2000)
 }
 
 
@@ -62,7 +65,7 @@ onFileSelected(event: Event): void {
   }
   setTimeout(()=>{
     window.location.reload();
-  },3000)
+  },2000)
 }
 //update cover photo
 UpdateCoverPhoto(){
@@ -271,51 +274,49 @@ UnLike(postId:number){
   })
 }
 /////////cooment
-showComment(post: any): void {
-  this.selectedPost = post; // Lưu bài đăng đã chọn
-  this.getAllComment(post.id);
+showComment(postId: number): void {
+  this.route.navigate([`Dashboard/Comment/${postId}`]);
 }
 //Get all comment by postId;
 
-getAllComment(postId:number){
-  this.commentService.GetAllComment(postId).subscribe(response =>{
-    this.apiResponseBody=response;
-    const dataComment = this.apiResponseBody?.data;
-    const post = this.post_showHTML.find(p => p.id === postId);
-    if (post) {
-      post.comments=dataComment;
+
+
+
+
+//Delete Post
+deletePost(postId:number){
+  Swal.fire({
+    title: 'Are you sure delete post ?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.postService.deletePost(postId).subscribe(res =>{
+        this.apiResponseBody=res;
+        if(this.apiResponseBody?.code===200){
+          this.toastr.success('Delete Post success', 'Notification', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+          });
+          setTimeout(()=>{
+            window.location.reload();
+          },1000)
+        }else{
+          this.toastr.error('Delete Post Fail', 'Notification', {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+          });
+        }
+      })
     }
-    this.detail = true;
-
-  })
+  });
 }
-togglePostDetails(): void {
-  this.detail = false;
-  this.selectedPost = null;
-  window.location.reload();
-}
-//add comment
-addComment(postIdRq:number,parentIdRq:any){
-  if (this.newComment.trim()) {
-    const userIdRq=this.userObject.userid;
-    this.commentResquest = {userId: userIdRq,postId:postIdRq,content:this.newComment,parentId:parentIdRq}
-    console.log(this.commentResquest);
-    this.commentService.AddComment(this.commentResquest).subscribe(response =>{
-      this.apiResponseBody=response;
-      if(this.apiResponseBody?.code===200){
-        this.getAllComment(postIdRq);
-        this.scrollToBottom(); // Cuộn xuống cuối cùng
-      }
-
-    })
-  }
-}
-//cuộn cmt
-scrollToBottom() {
-  try {
-    this.commentsContainer.nativeElement.scrollTop = this.commentsContainer.nativeElement.scrollHeight;
-  } catch (err) {
-    console.error('Scroll error:', err);
-  }
+editPost(postId:number){
+  this.route.navigate([`Dashboard/Profile/edit-post/${postId}`]);
 }
 }

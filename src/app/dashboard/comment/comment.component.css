@@ -1,0 +1,216 @@
+.posts-list{
+  margin: 10px;
+  box-sizing: border-box;
+
+
+}
+
+.posts-list ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.posts-list li{
+  margin-bottom: 20px;
+}
+.instagram-post {
+
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow-y:scroll;
+  scrollbar-width: none;
+  box-shadow: 0px 0px 2px rgba(197, 197, 197, 0.5);
+  max-height: 620px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.profile-picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.post-time {
+  color: #888;
+  font-size: 12px;
+}
+.post-image{
+width: 100%;
+height:585px;
+overflow: hidden;
+display: flex; /* Sử dụng flexbox để căn giữa */
+justify-content: center; /* Căn giữa theo chiều ngang */
+align-items: center; /* Căn giữa theo chiều dọc */
+}
+.post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+}
+
+.post-interactions {
+  padding: 10px;
+}
+.interactions{
+  display: flex;
+  flex-direction: row;
+}
+.interactions .icon {
+  display: inline-block; /* Quan trọng */
+  font-size: 18px;
+  padding: 7px;
+  transition: transform 0.3s ease;
+  transform: scale(1);
+}
+
+.interactions .icon:hover {
+  cursor: pointer;
+  transform: scale(1.4);
+  color: #0095f6;
+}
+
+
+
+ .caption, .comments {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.comment_out textarea {
+  width: 100%;
+  padding: 8px;
+  height: 50px;
+  max-height: 100px;
+  font-size: 14px;
+  resize: none; /* Ngăn kéo dãn ô nhập liệu */
+  outline: none; /* Loại bỏ viền khi focus */
+  box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+  border: none;
+}
+.comment_out textarea:focus {
+  border: none; /* Xóa viền khi focus */
+  outline: none;
+}
+
+.carousel-indicators li {
+
+  list-style: none;
+}
+
+/* Định nghĩa hiệu ứng fade-in */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Keyframes cho hiệu ứng fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Bắt đầu từ mờ */
+  }
+  to {
+    opacity: 1; /* Kết thúc ở trạng thái rõ ràng */
+  }
+}
+/* comment */
+.comments-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.comment-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 10px;
+}
+
+.comment-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.username {
+  font-weight: bold;
+  color: #333;
+}
+
+.comment-time {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.comment-text {
+  margin-top: 5px;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.comment-input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.comment-input {
+  flex: 1;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+}
+
+.comment-input:focus {
+  border-color: #007bff;
+}
+
+.send-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.send-btn:hover {
+  background-color: #0056b3;
+}

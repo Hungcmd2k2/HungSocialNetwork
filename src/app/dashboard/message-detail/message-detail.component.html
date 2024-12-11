@@ -1,33 +1,51 @@
 <div class="tab-mess-detail">
   <div class="chat-container" *ngFor="let user of userReceiverInfo">
     <!-- Phần header -->
-    <div class="chat-header" >
+    <div class="chat-header">
       <div class="header-avatar">
-      <img src="{{user.avatar}}" alt="Avatar">
+        <img src="{{ user.avatar }}" alt="Avatar" />
       </div>
       <div class="header-info">
-        <div class="user-name">{{user.username}}</div>
+        <div class="user-name">{{ user.username }}</div>
         <div class="status">Đang hoạt động</div>
       </div>
     </div>
 
     <!-- Phần danh sách tin nhắn -->
     <div class="message-list" #chatContainer>
-      <div *ngFor="let message of messages" class="message"
-        [ngClass]="{ 'right': message.senderId === senderId, 'left': message.senderId !== senderId }">
+      <div
+        *ngFor="let message of messages"
+        class="message"
+        [ngClass]="{
+          right: message.senderId === senderId,
+          left: message.senderId !== senderId
+        }"
+      >
+        <!-- Avatar -->
         <div *ngIf="message.senderId !== senderId" class="avatar">
-          <img src="{{user.avatar}}" alt="Avatar">
+          <img src="{{ user.avatar }}" alt="Avatar" />
         </div>
+
+        <!-- Message Bubble -->
         <div class="message-bubble">
           {{ message.content }}
+          <!-- Thời gian -->
+          <div class="message-time">
+            {{ message.timestamp | date : "shortTime" }}
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Phần nhập tin nhắn -->
     <div class="message-input">
-      <input type="text" placeholder="Nhập tin nhắn..." [(ngModel)]="newMessage" #messageInput
-        (keyup.enter)="sendMessage()" />
+      <input
+        type="text"
+        placeholder="Nhập tin nhắn..."
+        [(ngModel)]="newMessage"
+        #messageInput
+        (keyup.enter)="sendMessage()"
+      />
       <button (click)="sendMessage()">Gửi</button>
     </div>
   </div>

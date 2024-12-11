@@ -11,8 +11,8 @@ const routes: Routes = [
     component:FriendComponent,
     children:[
       {path:'',redirectTo :'MyFriend',pathMatch:'full'},
-      {path:'Invitation',component:InvitationComponent},
-      {path:'MyFriend',component:MyfriendComponent},
+      {path:'Follower',component:InvitationComponent},
+      {path:'Following',component:MyfriendComponent},
       {path:'Search',component:SearchComponent},
     ]
   }

@@ -1,13 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { environment } from '../Config/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
   constructor(private http: HttpClient) {}
-  private apiUrl = 'http://localhost:8080/api';
+  private url =environment.apiUrl;
+  private apiUrl = this.url + '/api';
+
 
   //hàm thêm mới bài viết
   createPost(postRequest: any): Observable<any> {
@@ -45,6 +48,24 @@ export class PostService {
   getAllFileForPost(postId: any): Observable<any> {
     return this.http
       .get(`${this.apiUrl}/files/post/${postId}`, { observe: 'response' })
+      .pipe(map((response) => response.body));
+  }
+  //Hàm xóa bài viết
+  deletePost(postId: any): Observable<any> {
+    return this.http
+      .delete(`${this.apiUrl}/post/${postId}`, { observe: 'response' })
+      .pipe(map((response) => response.body));
+  }
+  //Hàm sửa  bài viết
+  editPost(post :any): Observable<any> {
+    return this.http
+      .put(`${this.apiUrl}/post/edit`,post, { observe: 'response' })
+      .pipe(map((response) => response.body));
+  }
+  //Lấy post  dựa theo  PostId
+  getPost(postId: any): Observable<any> {
+    return this.http
+      .get(`${this.apiUrl}/post/postId/${postId}`, { observe: 'response' })
       .pipe(map((response) => response.body));
   }
 }
